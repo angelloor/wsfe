@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            background-color: gray;
+            justify-content: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .factura {
+            width: 930px;
+            height: auto;
+            background-color: white;
+            padding: 30px;
+            padding-top: 20px;
+        }
+
+        /**
+        * Header
+        */
+        .factura>.header {
+            display: flex;
+            flex-direction: row;
+            align-items: space-between;
+            justify-content: space-between;
+
+        }
+
+        .factura>.header>.infoNegocio {
+            width: 46.5%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .factura>.header>.infoNegocio>.logo {
+            height: 60%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .factura>.header>.infoNegocio>.logo>img {
+            width: 80%;
+        }
+
+
+        .factura>.header>.infoNegocio>.info {
+            height: 40%;
+            border: solid 1px black;
+            border-radius: 15px;
+            padding: 10px
+        }
+
+        .factura>.header>.infoNegocio>.info>h3 {
+            text-align: center;
+            font-size: 14px;
+            margin: 5px 0px;
+            font-weight: 600;
+        }
+
+        .factura>.header>.infoNegocio>.info>.dirMatriz {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        .factura>.header>.infoNegocio>.info>.dirMatriz>h4 {
+            margin: 15px 0px;
+        }
+
+        .factura>.header>.infoNegocio>.info>.dirMatriz>p {
+            margin: 15px 0px;
+        }
+
+
+        .factura>.header>.infoNegocio>.info>.obligadoContabilidad {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .factura>.header>.infoNegocio>.info>.obligadoContabilidad>h4 {
+            margin: 15px 0px;
+        }
+
+        .factura>.header>.infoNegocio>.info>.obligadoContabilidad>p {
+            margin: 15px 0px;
+        }
+
+        /**
+        * infoFactura
+        */
+        .factura>.header>.infoFactura {
+            width: 46.5%;
+            border: solid 1px black;
+            border-radius: 15px;
+            padding: 20px
+        }
+
+        .titleInfo {
+            padding-right: 5px;
+        }
+
+        .factura>.header>.infoFactura>.ruc {
+            display: flex;
+            flex-direction: row;
+            font-size: 14px;
+
+        }
+
+        .factura>.header>.infoFactura>.ruc>p {
+            margin: 5px 0px;
+            font-size: 14px;
+        }
+
+        .factura>.header>.infoFactura>.facturaInfo {
+            display: flex;
+            flex-direction: column;
+            margin: 5px 0px;
+        }
+
+        .factura>.header>.infoFactura>.facturaInfo>h1 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .factura>.header>.infoFactura>.facturaInfo>p {
+            margin: 5px 0px;
+            font-size: 14px;
+
+        }
+
+        .factura>.header>.infoFactura>.numeroAutorizacion {
+            display: flex;
+            flex-direction: column;
+            margin: 5px 0px;
+        }
+
+        .factura>.header>.infoFactura>.numeroAutorizacion>h1 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center
+        }
+
+        .factura>.header>.infoFactura>.numeroAutorizacion>p {
+            margin: 5px 0px;
+            font-size: 12.5px;
+            text-align: center;
+        }
+
+        .factura>.header>.infoFactura>.fechaAutorizacion {
+            display: flex;
+            flex-direction: row;
+            margin: 5px 0px;
+            align-items: center;
+        }
+
+        .factura>.header>.infoFactura>.fechaAutorizacion>h1 {
+            width: 40%;
+            margin: 0;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .factura>.header>.infoFactura>.fechaAutorizacion>p {
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .factura>.header>.infoFactura>.ambiente {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .factura>.header>.infoFactura>.ambiente>p {
+            margin: 5px 0px;
+            font-size: 14px;
+        }
+
+        .factura>.header>.infoFactura>.emision {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .factura>.header>.infoFactura>.emision>p {
+            margin: 5px 0px;
+            font-size: 14px;
+        }
+
+        .factura>.header>.infoFactura>.claveAcceso {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .factura>.header>.infoFactura>.claveAcceso>h1 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .factura>.header>.infoFactura>.claveAcceso>p {
+            margin: 5px 0px;
+            text-align: center;
+            font-size: 12.5px;
+        }
+
+        .factura>.header>.infoFactura>.claveAcceso>.containerBarCode>img {
+            width: 100%
+        }
+
+        /**
+        * DetailsClient
+        */
+        .factura>.detailsClient {
+            width: calc(100% - 30px);
+            border: solid 1px black;
+            border-radius: 15px;
+            margin: 10px 0px;
+            padding: 15px;
+        }
+
+        .factura>.detailsClient>.row {
+            display: flex;
+        }
+
+        .factura>.detailsClient>.row>.razonSocialComprador {
+            width: 70%;
+        }
+
+        .factura>.detailsClient>.row>.razonSocialComprador>p {
+            font-size: 12px;
+        }
+
+        .factura>.detailsClient>.row>.identificacionComprador {
+            width: 30%;
+        }
+
+        .factura>.detailsClient>.row>.identificacionComprador>p {
+            font-size: 12px;
+        }
+
+        .factura>.detailsClient>.row>.fechaEmision {
+            width: 70%;
+        }
+
+        .factura>.detailsClient>.row>.fechaEmision>p {
+            font-size: 12px;
+        }
+
+        .factura>.detailsClient>.row>.guiaRemision {
+            width: 30%;
+        }
+
+        .factura>.detailsClient>.row>.guiaRemision>p {
+            font-size: 12px;
+        }
+
+        .resetMaringP {
+            margin: 5px;
+        }
+
+        .factura>.details>table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .factura>.details>table>thead>tr>th {
+            font-size: 12px;
+            padding: 10px 0px;
+            text-align: center;
+            border: solid 1px black;
+        }
+
+        .factura>.details>table>thead>tr>.codigo {
+            width: 10%;
+        }
+
+        .factura>.details>table>thead>tr>.cantidad {
+            width: 10%;
+        }
+
+        .factura>.details>table>thead>tr>.descripcion {
+            width: 40%;
+        }
+
+        .factura>.details>table>thead>tr>.precioUnitario {
+            width: 15%;
+        }
+
+        .factura>.details>table>thead>tr>.Descuento {
+            width: 10%;
+        }
+
+        .factura>.details>table>thead>tr>.precioTotal {
+            width: 15%;
+        }
+
+
+        .factura>.details>table>tbody>tr>th {
+            padding: 10px 5px;
+            font-size: 12px;
+            font-weight: 300;
+            border: solid 1px black;
+        }
+
+        .factura>.details>.secondSectionDetails {
+            display: flex;
+            margin: 10px 0px;
+        }
+
+        .factura>.details>.secondSectionDetails>.informacionAdicional {
+            width: 55.5%;
+            height: 10%;
+            border: solid 1px black;
+            margin-right: 10px;
+            padding: 15px;
+        }
+
+        .factura>.details>.secondSectionDetails>.informacionAdicional>h1 {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .factura>.details>.secondSectionDetails>.informacionAdicional>table>tbody>tr>th {
+            font-size: 12px;
+            font-weight: 300;
+            text-align: left;
+        }
+
+        .factura>.details>.secondSectionDetails>table {
+            width: 40%;
+            border-collapse: collapse;
+        }
+
+        .factura>.details>.secondSectionDetails>table>tbody>tr>th {
+            border: solid 1px black;
+            padding: 10px 0px;
+            font-size: 12px;
+            font-weight: 300;
+        }
+
+        .factura>.details>.secondSectionDetails>table>tbody>tr>.firsColunm {
+            width: 62.5%;
+            font-weight: 700;
+        }
+
+        .padding-left {
+            padding-left: 10px;
+        }
+
+        .factura>.valoresExtras {
+            width: calc(100% - 10px);
+            border: solid 1px black;
+            border-radius: 15px;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .factura>.valoresExtras>h1 {
+            font-size: 14px;
+            text-align: center;
+            font-weight: 300;
+            margin: 5px;
+        }
+
+        .factura>.valoresExtras>p {
+            font-size: 12px;
+            text-align: center;
+            font-weight: 700;
+            margin: 5px;
+        }
+
+        .factura>.valoresExtras>.linea {
+            width: 90%;
+            height: 0px;
+            border: solid 2px green;
+            margin: 5px;
+        }
+
+        .factura>.valoresExtras>table {
+            width: 90%;
+            margin: 5px;
+        }
+
+        .factura>.valoresExtras>table>thead>tr>th {
+            text-align: left;
+            padding: 10px 0px;
+            font-size: 12px
+        }
+
+        .factura>.valoresExtras>table>thead>tr>.total {
+            text-align: center;
+            border: solid 1px black;
+        }
+
+        .factura>.nota {
+            width: 100%;
+        }
+
+        .factura>.nota>p {
+            text-align: center;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="factura">
+        <div class="header">
+            <div class="infoNegocio">
+                <div class="logo">
+                    <img src="./logo.png" alt="logo">
+                </div>
+                <div class="info">
+                    <h3>GOBIERNO AUTONOMO DESCENTRALIZADO
+                        MUNICIPAL DEL CANTON PASTAZA</h3>
+                    <div class="dirMatriz">
+                        <h4 class="titleInfo">DIRECCIÓN MATRIZ:</h4>
+                        <p>PASTAZA / PASTAZA / 9 DE OCTUBRE 1288 Y
+                            FRANCISCO DE ORELLANA</p>
+                    </div>
+                    <div class="obligadoContabilidad">
+                        <h4 class="titleInfo">OBLIGADO A LLEVAR CONTABILIDAD:</h4>
+                        <p>SI</p>
+                    </div>
+                </div>
+            </div>
+            <div class="infoFactura">
+                <div class="ruc">
+                    <p class="titleInfo">R.U.C.:</p>
+                    <p>1660000250001</p>
+                </div>
+                <div class="facturaInfo">
+                    <h1>FACTURA N°</h1>
+                    <p>001-001-000049338</p>
+                </div>
+                <div class="numeroAutorizacion">
+                    <h1>NÚMERO DE AUTORIZACIÓN</h1>
+                    <p>3004202101169171835900120020110000176740001767411</p>
+                </div>
+                <div class="fechaAutorizacion">
+                    <h1>FECHA Y HORA DE AUTORIZACIÓN</h1>
+                    <p>2021-04-30T18:35:39-05:00</p>
+                </div>
+                <div class="ambiente">
+                    <p class="titleInfo">AMBIENTE:</p>
+                    <p>PRODUCCION</p>
+                </div>
+                <div class="emision">
+                    <p class="titleInfo">EMISIÓN:</p>
+                    <p>NORMAL</p>
+                </div>
+                <div class="claveAcceso">
+                    <h1>CLAVE DE ACCESO</h1>
+                    <p>3004202101169171835900120020110000176740001767411</p>
+                    <div class="containerBarCode">
+                        <img src="./static/barCode.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="detailsClient">
+            <div class="row">
+                <div class="razonSocialComprador">
+                    <p class="resetMaringP"><strong>Razón Social/ Nombres Y Apellidos: </strong>CHIMBORAZO NAVAS JORGE
+                        DAVID</p>
+                </div>
+                <div class="identificacionComprador">
+                    <p class="resetMaringP"><strong>Identificación: </strong>1600732539</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="fechaEmision">
+                    <p class="resetMaringP"><strong>Fecha de Emisión: </strong>30/04/2021</p>
+                </div>
+                <div class="guiaRemision">
+                    <p class="resetMaringP"><strong>Guia de Remisión: </strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="details">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="codigo">Código</th>
+                        <th class="cantidad">Cantidad</th>
+                        <th class="descripcion">Descripción</th>
+                        <th class="precioUnitario">Precio Unitario</th>
+                        <th class="Descuento">Descuento</th>
+                        <th class="precioTotal">Precio Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>001</th>
+                        <th>1</th>
+                        <th>ARRIENDO CEMENTERIO DEL 2021 - CHIMBORAZO JURADO</th>
+                        <th>50.00</th>
+                        <th>0.00</th>
+                        <th>56.00</th>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="secondSectionDetails">
+                <div class="informacionAdicional">
+                    <h1>Información Adicional</h1>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Correo:</th>
+                                <th class="padding-left">miguelangelloor96@gmail.com</th>
+                            </tr>
+                            <tr>
+                                <th>Recaudador:</th>
+                                <th class="padding-left">Angel Miguel Loor Manzano</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th class="firsColunm">SUBTOTAL 12%</th>
+                            <th>50.00</th>
+                        </tr>
+                        <tr>
+                            <th class="firsColunm">SUBTOTAL 0%</th>
+                            <th>0</th>
+                        </tr>
+                        <tr>
+                            <th class="firsColunm">TOTAL Descuento</th>
+                            <th>0.00</th>
+                        </tr>
+                        <tr>
+                            <th class="firsColunm">IVA 12%</th>
+                            <th>6.00</th>
+                        </tr>
+                        <tr>
+                            <th class="firsColunm">Valor de la Factura</th>
+                            <th>56.00</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="valoresExtras">
+            <h1>GOBIERNO AUTONOMO DESCENTRALIZADO MUNICIPAL DEL CANTON PASTAZA</h1>
+            <p>1660000250001</p>
+            <div class="linea"></div>
+            <p>VALORES EXTRAS</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Procesamiento</th>
+                        <th>1.00</th>
+                        <th>Interes</th>
+                        <th>0.00</th>
+                        <th>Otros</th>
+                        <th>0.00</th>
+                        <th class="total">TOTAL A PAGAR: 57.00</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="nota">
+            <p>Esta factura puede rectificarse y darse de baja</p>
+            <p style="color: #0F172A">Usted puede descargar su factura de: https://puyo.gob.ec/facturacionElectronica
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

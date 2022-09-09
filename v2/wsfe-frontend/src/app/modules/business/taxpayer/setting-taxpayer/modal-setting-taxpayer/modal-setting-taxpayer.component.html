@@ -1,0 +1,287 @@
+<div class="relative flex flex-col w-full h-full">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg">Configuración</div>
+        <button mat-icon-button [tabIndex]="-1" (click)="closeModalSettingTaxpayer()">
+            <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+    </div>
+    <div class="flex flex-col flex-auto overflow-y-auto">
+        <div class="flex flex-col w-full">
+            <!-- View mode -->
+            <ng-container *ngIf="!editMode">
+                <!-- Header -->
+                <div
+                    class="relative w-full h-40 flex items-center bg-accent-100 dark:bg-accent-700 place-content-center">
+                    <!-- Background -->
+                    <div class="w-full h-40 bg-black z-10 opacity-0">
+                    </div>
+                    <h1 class="absolute z-20 text-dark text-3xl">{{nameEntity}}
+                    </h1>
+                    <!-- Light version -->
+                    <img class="dark:hidden absolute inset-0 object-cover w-full h-full"
+                        src="assets/images/background.svg">
+                    <!-- Dark version -->
+                    <img class="hidden dark:flex absolute inset-0 object-cover w-full h-full"
+                        src="assets/images/background-on-dark.svg">
+                </div>
+                <!-- Entity -->
+                <div class="relative flex flex-col flex-auto items-center p-6 pt-0 sm:p-12 sm:pt-0">
+                    <div class="w-full max-w-3xl">
+                        <!-- Actions -->
+                        <div
+                            class="flex items-center -mx-6 sm:-mx-12 py-4 pr-6 pl-6 sm:pr-12 sm:pl-12 border-t bg-gray-100 dark:bg-transparent rounded-t-none rounded-b-2xl">
+                            <button class="ml-auto" mat-flat-button [color]="'primary'"
+                                [disabled]="!settingTaxpayerForm.getRawValue().mailing_setting_taxpayer"
+                                [matTooltip]="'Servidores de correo'" (click)="openModalMailServers()">
+                                <span class="relative">
+                                    Servidores de correo
+                                </span>
+                            </button>
+                            <button class="ml-2" mat-stroked-button (click)="toggleEditMode(true)">
+                                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:pencil-alt'"></mat-icon>
+                                <span class="ml-1">Editar</span>
+                            </button>
+                        </div>
+                        <div class="flex flex-col space-y-8">
+                            <!-- mailing_setting_taxpayer -->
+                            <ng-container>
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:status-online'"></mat-icon>
+                                    <div *ngIf="settingTaxpayer.mailing_setting_taxpayer"
+                                        class="ml-6 mt-1 w-3 h-3 bg-green-700 rounded-full">
+                                    </div>
+                                    <div *ngIf="!settingTaxpayer.mailing_setting_taxpayer"
+                                        class="ml-6 mt-1 w-3 h-3 bg-red-600 rounded-full">
+                                    </div>
+                                </div>
+                            </ng-container> <!-- id_mail_server -->
+                            <ng-container
+                                *ngIf="settingTaxpayer.mail_server.id_mail_server && settingTaxpayerForm.getRawValue().mailing_setting_taxpayer">
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:credit-card'"></mat-icon>
+                                    <div class="ml-6 leading-6">{{selectedMailServer.host_mail_server}}</div>
+                                </div>
+                            </ng-container> <!-- from_setting_taxpayer -->
+                            <ng-container
+                                *ngIf="settingTaxpayer.from_setting_taxpayer && settingTaxpayerForm.getRawValue().mailing_setting_taxpayer">
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:credit-card'"></mat-icon>
+                                    <div class="ml-6 leading-6">{{settingTaxpayer.from_setting_taxpayer}}</div>
+                                </div>
+                            </ng-container> <!-- subject_setting_taxpayer -->
+                            <ng-container
+                                *ngIf="settingTaxpayer.subject_setting_taxpayer && settingTaxpayerForm.getRawValue().mailing_setting_taxpayer">
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:credit-card'"></mat-icon>
+                                    <div class="ml-6 leading-6">{{settingTaxpayer.subject_setting_taxpayer}}</div>
+                                </div>
+                            </ng-container> <!-- html_setting_taxpayer -->
+                            <div class="mt-8"
+                                *ngIf="settingTaxpayer.html_setting_taxpayer && settingTaxpayerForm.getRawValue().mailing_setting_taxpayer">
+                                <mat-form-field class="angel-mat-textarea angel-mat-no-subscript w-full">
+                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_outline:menu-alt-2'"></mat-icon>
+                                    <textarea matInput matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                                        cdkAutosizeMinRows="5" cdkAutosizeMaxRows="30" disabled
+                                        [value]="settingTaxpayer.html_setting_taxpayer"
+                                        [placeholder]="'Estructura del correo'" [spellcheck]="false"></textarea>
+                                </mat-form-field>
+                            </div> <!-- download_note_setting_taxpayer -->
+                            <ng-container *ngIf="settingTaxpayer.download_note_setting_taxpayer">
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:credit-card'"></mat-icon>
+                                    <div class="ml-6 leading-6">{{settingTaxpayer.download_note_setting_taxpayer}}</div>
+                                </div>
+                            </ng-container> <!-- logo_path_setting_taxpayer -->
+                            <ng-container *ngIf="settingTaxpayer.logo_path_setting_taxpayer">
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:credit-card'"></mat-icon>
+                                    <div class="ml-6 leading-6">{{settingTaxpayer.logo_path_setting_taxpayer}}</div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <!-- Edit mode -->
+            <ng-container *ngIf="editMode">
+                <!-- Header -->
+                <div
+                    class="relative w-full h-40 flex items-center bg-accent-100 dark:bg-accent-700 place-content-center">
+                    <!-- Background -->
+                    <div class="w-full h-40 bg-black z-10 opacity-25">
+                    </div>
+                    <h1 class="absolute z-20 text-dark text-3xl">{{nameEntity}}
+                    </h1>
+                    <!-- Light version -->
+                    <img class="dark:hidden absolute inset-0 object-cover w-full h-full"
+                        src="assets/images/background.svg">
+                    <!-- Dark version -->
+                    <img class="hidden dark:flex absolute inset-0 object-cover w-full h-full"
+                        src="assets/images/background-on-dark.svg">
+                </div>
+                <!-- form -->
+                <div class="relative flex flex-col flex-auto items-center px-6 sm:px-12">
+                    <div class="w-full max-w-3xl">
+                        <!-- Actions -->
+                        <div
+                            class="flex items-center -mx-6 sm:-mx-12 py-4 pr-6 pl-6 sm:pr-12 sm:pl-12 border-t bg-gray-100 dark:bg-transparent rounded-t-none rounded-b-2xl">
+                            <!-- Save -->
+                            <button mat-flat-button [color]="'primary'" class="ml-auto"
+                                [disabled]="settingTaxpayerForm.invalid || (settingTaxpayerForm.getRawValue().mailing_setting_taxpayer == true && (settingTaxpayerForm.getRawValue().id_mail_server == null || settingTaxpayerForm.getRawValue().from_setting_taxpayer == '' || settingTaxpayerForm.getRawValue().subject_setting_taxpayer == '' || settingTaxpayerForm.getRawValue().html_setting_taxpayer == ''))"
+                                [matTooltip]="'Guardar'" (click)="updateSettingTaxpayer()">
+                                Guardar
+                            </button>
+                            <!-- Cancel -->
+                            <button mat-stroked-button class="ml-2" [matTooltip]="'Cancelar'"
+                                (click)="toggleEditMode(false)">
+                                Cancelar
+                            </button>
+                        </div>
+                        <form [formGroup]="settingTaxpayerForm" class="mb-8">
+                            <!-- Alert -->
+                            <angel-alert class="mt-4 mb-8"
+                                *ngIf="(settingTaxpayerForm.invalid || showAlert || (settingTaxpayerForm.getRawValue().mailing_setting_taxpayer == true && (settingTaxpayerForm.getRawValue().id_mail_server == null || settingTaxpayerForm.getRawValue().from_setting_taxpayer == '' || settingTaxpayerForm.getRawValue().subject_setting_taxpayer == '' || settingTaxpayerForm.getRawValue().html_setting_taxpayer == '')))  "
+                                [appearance]="'outline'" [showIcon]="false" [type]="alert.type"
+                                [@shake]="alert.type === 'error'">
+                                <!-- MessageAPI if alert is actived for the component -->
+                                {{alert.message}}
+                                <!-- id_mail_server -->
+                                <mat-error *ngIf="settingTaxpayerForm.getRawValue().id_mail_server == null">
+                                    • Seleccione el servidor de correo
+                                </mat-error>
+                                <!-- mailing_setting_taxpayer -->
+                                <mat-error
+                                    *ngIf="settingTaxpayerForm.get('mailing_setting_taxpayer')?.hasError('required')">
+                                    • Seleccione el envío de correos
+                                </mat-error>
+                                <!-- from_setting_taxpayer -->
+                                <mat-error *ngIf="settingTaxpayerForm.getRawValue().from_setting_taxpayer == ''">
+                                    • Ingrese el remitente para el envío de correos
+                                </mat-error>
+                                <!-- subject_setting_taxpayer -->
+                                <mat-error *ngIf="settingTaxpayerForm.getRawValue().subject_setting_taxpayer == ''">
+                                    • Ingrese el asunto para el envío de correos
+                                </mat-error>
+                                <!-- html_setting_taxpayer -->
+                                <mat-error *ngIf="settingTaxpayerForm.getRawValue().html_setting_taxpayer == ''">
+                                    • Ingrese el template html para el envío de correos
+                                </mat-error>
+                                <!-- download_note_setting_taxpayer -->
+                                <mat-error
+                                    *ngIf="settingTaxpayerForm.get('download_note_setting_taxpayer')?.hasError('required')">
+                                    • Ingrese la nota de descarga (Se muestra en la parte inferior del RIDE)
+                                </mat-error>
+                                <!-- logo_path_setting_taxpayer -->
+                                <mat-error
+                                    *ngIf="settingTaxpayerForm.get('logo_path_setting_taxpayer')?.hasError('required')">
+                                    • Suba el logo para el RIDE
+                                </mat-error>
+                            </angel-alert>
+                            <!-- Alert -->
+                            <!-- mailing_setting_taxpayer -->
+                            <div>
+                                <mat-form-field class="angel-mat-no-subscript w-full">
+                                    <mat-label>mailing_setting_taxpayer</mat-label>
+                                    <mat-select [formControlName]="'mailing_setting_taxpayer'">
+                                        <mat-option [value]="true">Activo</mat-option>
+                                        <mat-option [value]="false">Inactivo</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div> <!-- id_mail_server -->
+                            <div class="mt-8" *ngIf="settingTaxpayerForm.getRawValue().mailing_setting_taxpayer">
+                                <mat-form-field class="angel-mat-no-subscript w-full">
+                                    <mat-label>MailServer</mat-label>
+                                    <mat-select [formControlName]="'id_mail_server'"
+                                        [value]="selectedMailServer.id_mail_server">
+                                        <ng-container *ngFor="let category of categoriesMailServer">
+                                            <mat-option [value]="category.id_mail_server"
+                                                [matTooltip]="category.type_mail_server">
+                                                {{category.host_mail_server}}</mat-option>
+                                        </ng-container>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <!-- from_setting_taxpayer -->
+                            <div class="mt-8" *ngIf="settingTaxpayerForm.getRawValue().mailing_setting_taxpayer">
+                                <mat-form-field class="angel-mat-no-subscript w-full">
+                                    <mat-label>Remitente</mat-label>
+                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_solid:credit-card'">
+                                    </mat-icon>
+                                    <input matInput maxlength="250" [formControlName]="'from_setting_taxpayer'"
+                                        [placeholder]="'Ingrese el remitente para el envío de correos'"
+                                        [spellcheck]="false">
+                                </mat-form-field>
+                            </div> <!-- subject_setting_taxpayer -->
+                            <div class="mt-8" *ngIf="settingTaxpayerForm.getRawValue().mailing_setting_taxpayer">
+                                <mat-form-field class="angel-mat-no-subscript w-full">
+                                    <mat-label>Asunto</mat-label>
+                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_solid:credit-card'">
+                                    </mat-icon>
+                                    <input matInput maxlength="250" [formControlName]="'subject_setting_taxpayer'"
+                                        [placeholder]="'Ingrese el asunto para el envío de correos'"
+                                        [spellcheck]="true">
+                                </mat-form-field>
+                            </div> <!-- html_setting_taxpayer -->
+                            <div class="relative flex mt-8"
+                                *ngIf="settingTaxpayerForm.getRawValue().mailing_setting_taxpayer">
+                                <mat-form-field class="angel-mat-textarea angel-mat-no-subscript w-full">
+                                    <mat-label>Template</mat-label>
+                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_solid:menu-alt-2'"></mat-icon>
+                                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                                        cdkAutosizeMinRows="5" cdkAutosizeMaxRows="30"
+                                        [formControlName]="'html_setting_taxpayer'"
+                                        [placeholder]="'Ingrese el template html para el envío de correos'"
+                                        [spellcheck]="false"></textarea>
+                                </mat-form-field>
+                            </div> <!-- download_note_setting_taxpayer -->
+                            <div class="mt-8">
+                                <mat-form-field class="angel-mat-no-subscript w-full">
+                                    <mat-label>Nota de descarga</mat-label>
+                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_solid:credit-card'">
+                                    </mat-icon>
+                                    <input matInput maxlength="500" [formControlName]="'download_note_setting_taxpayer'"
+                                        [placeholder]="'Ingrese la nota de descarga (Se muestra en la parte inferior del RIDE)'"
+                                        [spellcheck]="true">
+                                </mat-form-field>
+                            </div>
+                            <!-- logo_path_setting_taxpayer -->
+                            <div class="mt-8">
+                                <div class="text-base mb-1">Logo Ride *</div>
+                                <ng-container>
+                                    <mat-form-field appearance="outline" class="w-full">
+                                        <ngx-mat-file-input #removableInput formControlName="{{'removablefileInitial'}}"
+                                            (change)="removableInput.setDisabledState(true); uploadLogo( $event.target); removableInput.clear($event);"
+                                            [accept]="'.png,.jpg'" (value)="removableInput">
+                                        </ngx-mat-file-input>
+                                        <mat-icon *ngIf="removableInput.empty" matSuffix>upload</mat-icon>
+                                        <button mat-icon-button matSuffix *ngIf="!removableInput.empty"
+                                            (click)="removableInput.setDisabledState(true); downloadLogo()">
+                                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:download'">
+                                            </mat-icon>
+                                        </button>
+                                        <button mat-icon-button matSuffix *ngIf="!removableInput.empty"
+                                            [disabled]="false"
+                                            (click)="removableInput.clear($event); removableInput.setDisabledState(false); deleteLogo();">
+                                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'">
+                                            </mat-icon>
+                                        </button>
+                                    </mat-form-field>
+                                </ng-container>
+                            </div>
+                            <!-- logo_path_setting_taxpayer -->
+                        </form>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,9 @@
+{
+	"nombre":"${documentoMapa.nombre}",
+	"accesoDescarga":"${documentoMapa.accesoDescarga}",
+	"tipo":"${documentoMapa.tipo}",
+	"referencia":"${documentoMapa.referencia.nodeRef}",
+	"xPathLocationPadre":"${documentoMapa.xPathLocationPadre}",
+	"xPathLocation":"${documentoMapa.xPathLocation}",
+	"propiedades":${documentoMapa.propiedades}
+}

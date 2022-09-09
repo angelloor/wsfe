@@ -1,0 +1,8 @@
+<webscript>
+   <shortname>Buscar archivo</shortname>
+   <description>Permite buscar un archivo</description>
+   <url>/com/general/buscar?query={query?}&amp;id={id?}&amp;contenido={contenido?}</url>
+   <authentication>user</authentication>
+   <format default="json" />
+   <family>WEB-SCRIPTS-GENERAL</family>
+</webscript>

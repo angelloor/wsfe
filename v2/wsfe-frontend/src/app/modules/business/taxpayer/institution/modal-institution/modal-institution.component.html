@@ -1,0 +1,255 @@
+<div class="relative flex flex-col w-full h-full">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg">{{institution.name_institution}}</div>
+        <button mat-icon-button [tabIndex]="-1" (click)="closeModalInstitution()">
+            <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+    </div>
+    <div class="flex flex-col flex-auto overflow-y-auto">
+        <div class="flex flex-col w-full">
+            <!-- View mode -->
+            <ng-container *ngIf="!editMode">
+                <!-- Header -->
+                <div
+                    class="relative w-full h-40 flex items-center bg-accent-100 dark:bg-accent-700 place-content-center">
+                    <!-- Background -->
+                    <div class="w-full h-40 bg-black z-10 opacity-0">
+                    </div>
+                    <h1 class="absolute z-20 text-dark text-3xl">{{nameEntity}}
+                    </h1>
+                    <!-- Light version -->
+                    <img class="dark:hidden absolute inset-0 object-cover w-full h-full"
+                        src="assets/images/background.svg">
+                    <!-- Dark version -->
+                    <img class="hidden dark:flex absolute inset-0 object-cover w-full h-full"
+                        src="assets/images/background-on-dark.svg">
+                </div>
+                <!-- Entity -->
+                <div class="relative flex flex-col flex-auto items-center p-6 pt-0 sm:p-12 sm:pt-0">
+                    <div class="w-full max-w-3xl">
+                        <!-- Actions -->
+                        <div
+                            class="flex items-center -mx-6 sm:-mx-12 py-4 pr-6 pl-6 sm:pr-12 sm:pl-12 border-t bg-gray-100 dark:bg-transparent rounded-t-none rounded-b-2xl">
+                            <button class="ml-auto mr-2" mat-flat-button [color]="'primary'"
+                                [disabled]="institutionForm.invalid" [matTooltip]="'Guardar'"
+                                (click)="openModalSequences()">
+                                Ver secuenciales
+                            </button>
+                            <button mat-stroked-button (click)="toggleEditMode(true)">
+                                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:pencil-alt'"></mat-icon>
+                                <span class="ml-1">Editar</span>
+                            </button>
+                        </div>
+                        <div class="flex flex-col space-y-8">
+                            <!-- type_environment -->
+                            <!-- Type Enum -->
+                            <ng-container *ngIf="institution.type_environment">
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'mat_outline:category'"></mat-icon>
+                                    <div class="ml-6 leading-6">{{typeSelect.name_type}}</div>
+                                </div>
+                            </ng-container>
+                            <!-- name_institution -->
+                            <ng-container *ngIf="institution.name_institution">
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:credit-card'"></mat-icon>
+                                    <div class="ml-6 leading-6">{{institution.name_institution}}</div>
+                                </div>
+                            </ng-container> <!-- description_institution -->
+                            <ng-container *ngIf="institution.description_institution">
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:tag'"></mat-icon>
+                                    <div class="ml-6 leading-6">{{institution.description_institution}}</div>
+                                </div>
+                            </ng-container> <!-- address_institution -->
+                            <ng-container *ngIf="institution.address_institution">
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:location-marker'"></mat-icon>
+                                    <div class="ml-6 leading-6">{{institution.address_institution}}</div>
+                                </div>
+                            </ng-container> <!-- status_institution -->
+                            <ng-container>
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:status-online'"></mat-icon>
+                                    <div *ngIf="institution.status_institution"
+                                        class="ml-6 mt-1 w-3 h-3 bg-green-700 rounded-full">
+                                    </div>
+                                    <div *ngIf="!institution.status_institution"
+                                        class="ml-6 mt-1 w-3 h-3 bg-red-600 rounded-full">
+                                    </div>
+                                </div>
+                            </ng-container> <!-- value_sequence -->
+                            <ng-container *ngIf="institution.value_sequence">
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:hashtag'"></mat-icon>
+                                    <div class="ml-6 leading-6">{{institution.value_sequence}}</div>
+                                </div>
+                            </ng-container> <!-- status_by_batch_institution -->
+                            <ng-container>
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:status-online'"></mat-icon>
+                                    <div *ngIf="institution.status_by_batch_institution"
+                                        class="ml-6 mt-1 w-3 h-3 bg-green-700 rounded-full">
+                                    </div>
+                                    <div *ngIf="!institution.status_by_batch_institution"
+                                        class="ml-6 mt-1 w-3 h-3 bg-red-600 rounded-full">
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <!-- Edit mode -->
+            <ng-container *ngIf="editMode">
+                <!-- Header -->
+                <div
+                    class="relative w-full h-40 flex items-center bg-accent-100 dark:bg-accent-700 place-content-center">
+                    <!-- Background -->
+                    <div class="w-full h-40 bg-black z-10 opacity-25">
+                    </div>
+                    <h1 class="absolute z-20 text-dark text-3xl">{{nameEntity}}
+                    </h1>
+                    <!-- Light version -->
+                    <img class="dark:hidden absolute inset-0 object-cover w-full h-full"
+                        src="assets/images/background.svg">
+                    <!-- Dark version -->
+                    <img class="hidden dark:flex absolute inset-0 object-cover w-full h-full"
+                        src="assets/images/background-on-dark.svg">
+                </div>
+                <!-- form -->
+                <div class="relative flex flex-col flex-auto items-center px-6 sm:px-12">
+                    <div class="w-full max-w-3xl">
+                        <!-- Actions -->
+                        <div
+                            class="flex items-center -mx-6 sm:-mx-12 py-4 pr-6 pl-6 sm:pr-12 sm:pl-12 border-t bg-gray-100 dark:bg-transparent rounded-t-none rounded-b-2xl">
+                            <!-- Save -->
+                            <button mat-flat-button [color]="'primary'" class="ml-auto"
+                                [disabled]="institutionForm.invalid" [matTooltip]="'Guardar'"
+                                (click)="updateInstitution()">
+                                Guardar
+                            </button>
+                            <!-- Delete -->
+                            <button mat-stroked-button class="ml-2" [color]="'warn'" [matTooltip]="'Eliminar'"
+                                (click)="deleteInstitution()">
+                                Eliminar
+                            </button>
+                            <!-- Cancel -->
+                            <button mat-stroked-button class="ml-2" [matTooltip]="'Cancelar'"
+                                (click)="toggleEditMode(false)">
+                                Cancelar
+                            </button>
+                        </div>
+                        <form [formGroup]="institutionForm" class="mb-8">
+                            <!-- Alert -->
+                            <angel-alert class="mt-4 mb-8" *ngIf="institutionForm.invalid || showAlert"
+                                [appearance]="'outline'" [showIcon]="false" [type]="alert.type"
+                                [@shake]="alert.type === 'error'">
+                                <!-- MessageAPI if alert is actived for the component -->
+                                {{alert.message}}
+                                <!-- type_environment -->
+                                <mat-error *ngIf="institutionForm.get('type_environment')?.hasError('required')">
+                                    • Seleccione el ambiente de la institución
+                                </mat-error>
+                                <!-- name_institution -->
+                                <mat-error *ngIf="institutionForm.get('name_institution')?.hasError('required')">
+                                    • Ingrese el nombre de la institución
+                                </mat-error>
+                                <mat-error
+                                    *ngIf="institutionForm.get('name_institution')?.hasError('cannotContainSpace')">
+                                    • El nombre de institución no puede contener espacios
+                                </mat-error>
+                                <!-- description_institution -->
+                                <mat-error *ngIf="institutionForm.get('description_institution')?.hasError('required')">
+                                    • Ingrese la descripción de la institución
+                                </mat-error>
+                                <!-- address_institution -->
+                                <mat-error *ngIf="institutionForm.get('address_institution')?.hasError('required')">
+                                    • Ingrese la dirección de la institución
+                                </mat-error>
+                                <!-- status_institution -->
+                                <mat-error *ngIf="institutionForm.get('status_institution')?.hasError('required')">
+                                    • Seleccione el estado de la institución
+                                </mat-error>
+                            </angel-alert>
+                            <!-- Alert -->
+                            <!-- status_by_batch_institution -->
+                            <mat-slide-toggle [formControlName]="'status_by_batch_institution'"
+                                (change)="changeStatusByBatchInstitution()" [color]="'primary'">
+                                Estado del envío por lote
+                            </mat-slide-toggle>
+                            <!-- type_environment -->
+                            <!-- Type Enum -->
+                            <div class="mt-8">
+                                <mat-form-field class="angel-mat-no-subscript w-full">
+                                    <mat-label>Ambiente</mat-label>
+                                    <mat-select [formControlName]="'type_environment'">
+                                        <ng-container *ngFor="let type of typeEnvironment">
+                                            <mat-option [value]="type.value_type">
+                                                {{type.name_type}}</mat-option>
+                                        </ng-container>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <!-- name_institution -->
+                            <div class="mt-8">
+                                <mat-form-field class="angel-mat-no-subscript w-full">
+                                    <mat-label>Nombre</mat-label>
+                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_solid:credit-card'">
+                                    </mat-icon>
+                                    <input matInput maxlength="100" [formControlName]="'name_institution'"
+                                        [placeholder]="'Ingrese el nombre de la institución'" [spellcheck]="false">
+                                </mat-form-field>
+                            </div> <!-- description_institution -->
+                            <div class="mt-8">
+                                <mat-form-field class="angel-mat-no-subscript w-full">
+                                    <mat-label>Descripción</mat-label>
+                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_solid:tag'">
+                                    </mat-icon>
+                                    <input matInput maxlength="250" [formControlName]="'description_institution'"
+                                        [placeholder]="'Ingrese la descripción de la institución'" [spellcheck]="true">
+                                </mat-form-field>
+                            </div> <!-- address_institution -->
+                            <div class="mt-8">
+                                <mat-form-field class="angel-mat-no-subscript w-full">
+                                    <mat-label>Dirección</mat-label>
+                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_solid:location-marker'">
+                                    </mat-icon>
+                                    <input matInput maxlength="300" [formControlName]="'address_institution'"
+                                        [placeholder]="'Ingrese la dirección de la institución'" [spellcheck]="false">
+                                </mat-form-field>
+                            </div> <!-- status_institution -->
+                            <div class="mt-8">
+                                <mat-form-field class="angel-mat-no-subscript w-full">
+                                    <mat-label>Estado</mat-label>
+                                    <mat-select [formControlName]="'status_institution'">
+                                        <mat-option [value]="true">Activo</mat-option>
+                                        <mat-option [value]="false">Inactivo</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div> <!-- value_sequence -->
+                            <div class="mt-8">
+                                <mat-form-field class="angel-mat-no-subscript w-full"
+                                    [matTooltip]="'Se usa para los numero de comprobante de manera implícita'">
+                                    <mat-label>Secuencial
+                                    </mat-label>
+                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_solid:hashtag'">
+                                    </mat-icon>
+                                    <input matInput maxlength="8" [formControlName]="'value_sequence'"
+                                        [matTooltip]="'Cancelarsss'" [spellcheck]="false">
+                                </mat-form-field>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

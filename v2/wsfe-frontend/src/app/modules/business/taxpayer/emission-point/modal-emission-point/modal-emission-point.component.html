@@ -1,0 +1,158 @@
+<div class="relative flex flex-col w-full h-full">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg">{{emissionPoint.value_emission_point}}</div>
+        <button mat-icon-button [tabIndex]="-1" (click)="closeModalEmissionPoint()">
+            <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+    </div>
+    <div class="flex flex-col flex-auto overflow-y-auto">
+        <div class="flex flex-col w-full">
+            <!-- View mode -->
+            <ng-container *ngIf="!editMode">
+                <!-- Header -->
+                <div
+                    class="relative w-full h-40 flex items-center bg-accent-100 dark:bg-accent-700 place-content-center">
+                    <!-- Background -->
+                    <div class="w-full h-40 bg-black z-10 opacity-0">
+                    </div>
+                    <h1 class="absolute z-20 text-dark text-3xl">{{nameEntity}}
+                    </h1>
+                    <!-- Light version -->
+                    <img class="dark:hidden absolute inset-0 object-cover w-full h-full"
+                        src="assets/images/background.svg">
+                    <!-- Dark version -->
+                    <img class="hidden dark:flex absolute inset-0 object-cover w-full h-full"
+                        src="assets/images/background-on-dark.svg">
+                </div>
+                <!-- Entity -->
+                <div class="relative flex flex-col flex-auto items-center p-6 pt-0 sm:p-12 sm:pt-0">
+                    <div class="w-full max-w-3xl">
+                        <!-- Actions -->
+                        <div
+                            class="flex items-center -mx-6 sm:-mx-12 py-4 pr-6 pl-6 sm:pr-12 sm:pl-12 border-t bg-gray-100 dark:bg-transparent rounded-t-none rounded-b-2xl">
+                            <button class="ml-auto" mat-stroked-button (click)="toggleEditMode(true)">
+                                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:pencil-alt'"></mat-icon>
+                                <span class="ml-1">Editar</span>
+                            </button>
+                        </div>
+                        <div class="flex flex-col space-y-8">
+                            <!-- value_emission_point -->
+                            <ng-container *ngIf="emissionPoint.value_emission_point">
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:credit-card'"></mat-icon>
+                                    <div class="ml-6 leading-6">{{emissionPoint.value_emission_point}}</div>
+                                </div>
+                            </ng-container> <!-- description_emission_point -->
+                            <ng-container *ngIf="emissionPoint.description_emission_point">
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:tag'"></mat-icon>
+                                    <div class="ml-6 leading-6">{{emissionPoint.description_emission_point}}</div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <!-- Edit mode -->
+            <ng-container *ngIf="editMode">
+                <!-- Header -->
+                <div
+                    class="relative w-full h-40 flex items-center bg-accent-100 dark:bg-accent-700 place-content-center">
+                    <!-- Background -->
+                    <div class="w-full h-40 bg-black z-10 opacity-25">
+                    </div>
+                    <h1 class="absolute z-20 text-dark text-3xl">{{nameEntity}}
+                    </h1>
+                    <!-- Light version -->
+                    <img class="dark:hidden absolute inset-0 object-cover w-full h-full"
+                        src="assets/images/background.svg">
+                    <!-- Dark version -->
+                    <img class="hidden dark:flex absolute inset-0 object-cover w-full h-full"
+                        src="assets/images/background-on-dark.svg">
+                </div>
+                <!-- form -->
+                <div class="relative flex flex-col flex-auto items-center px-6 sm:px-12">
+                    <div class="w-full max-w-3xl">
+                        <!-- Actions -->
+                        <div
+                            class="flex items-center -mx-6 sm:-mx-12 py-4 pr-6 pl-6 sm:pr-12 sm:pl-12 border-t bg-gray-100 dark:bg-transparent rounded-t-none rounded-b-2xl">
+                            <!-- Save -->
+                            <button mat-flat-button [color]="'primary'" class="ml-auto"
+                                [disabled]="emissionPointForm.invalid" [matTooltip]="'Guardar'"
+                                (click)="updateEmissionPoint()">
+                                Guardar
+                            </button>
+                            <!-- Delete -->
+                            <button mat-stroked-button class="ml-2" [color]="'warn'" [matTooltip]="'Eliminar'"
+                                (click)="deleteEmissionPoint()">
+                                Eliminar
+                            </button>
+                            <!-- Cancel -->
+                            <button mat-stroked-button class="ml-2" [matTooltip]="'Cancelar'"
+                                (click)="toggleEditMode(false)">
+                                Cancelar
+                            </button>
+                        </div>
+                        <form [formGroup]="emissionPointForm" class="mb-8">
+                            <!-- Alert -->
+                            <angel-alert class="mt-4 mb-8" *ngIf="emissionPointForm.invalid || showAlert"
+                                [appearance]="'outline'" [showIcon]="false" [type]="alert.type"
+                                [@shake]="alert.type === 'error'">
+                                <!-- MessageAPI if alert is actived for the component -->
+                                {{alert.message}}
+                                <!-- value_emission_point -->
+                                <mat-error *ngIf="emissionPointForm.get('value_emission_point')?.hasError('required')">
+                                    • Ingrese el código del punto de emisión
+                                </mat-error>
+                                <mat-error *ngIf="emissionPointForm.get('value_emission_point')?.hasError('minlength')">
+                                    • El valor mínimo del código del punto de emisión 3 caracteres
+                                </mat-error>
+                                <mat-error *ngIf="emissionPointForm.get('value_emission_point')?.hasError('maxlength')">
+                                    • El valor máximo del código del punto de emisión 3 caracteres
+                                </mat-error>
+                                <mat-error *ngIf="emissionPointForm.get('value_emission_point')?.hasError('pattern')">
+                                    • El código del punto de emisión solo admite números
+                                </mat-error>
+                                <mat-error
+                                    *ngIf="emissionPointForm.get('value_emission_point')?.hasError('cannotContainSpace')">
+                                    • El código del punto de emisión no admite espacios en blanco
+                                </mat-error>
+                                <!-- description_establishment -->
+                                <mat-error
+                                    *ngIf="emissionPointForm.get('description_emission_point')?.hasError('required')">
+                                    • Ingrese la descripción del punto de emisión
+                                </mat-error>
+                            </angel-alert>
+                            <!-- Alert -->
+                            <!-- value_emission_point -->
+                            <div>
+                                <mat-form-field class="angel-mat-no-subscript w-full">
+                                    <mat-label>Código</mat-label>
+                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_solid:credit-card'">
+                                    </mat-icon>
+                                    <input matInput maxlength="3" [formControlName]="'value_emission_point'"
+                                        [placeholder]="'Ingrese el código del punto de emisión'" [spellcheck]="false">
+                                </mat-form-field>
+                            </div> <!-- description_emission_point -->
+                            <div class="mt-8">
+                                <mat-form-field class="angel-mat-no-subscript w-full">
+                                    <mat-label>Descripción</mat-label>
+                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_solid:tag'">
+                                    </mat-icon>
+                                    <input matInput maxlength="250" [formControlName]="'description_emission_point'"
+                                        [placeholder]="'Ingrese el descripción del punto de emisión'"
+                                        [spellcheck]="true">
+                                </mat-form-field>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+10 16 * * * sh /home/gadmpastaza/wsfe-backend/scripts/bringVouchersOfSQLServer_1.sh
+15 16 * * * sh /home/gadmpastaza/wsfe-backend/scripts/bringVouchersOfSQLServer_2.sh
+20 16 * * * sh /home/gadmpastaza/wsfe-backend/scripts/sendVoucherByBatchByTaxpayer_1_01.sh
+
+#In user postgres 
+59 22 * * * sh /var/lib/postgresql/pg_dump.sh
+#In user postgres 
+
+@reboot sh /home/gadmpastaza/wsfe-backend/scripts/start.sh

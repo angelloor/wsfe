@@ -1,0 +1,112 @@
+[
+	{
+		"id": "core",
+		"title": "Core",
+		"subtitle": "Administración core del sistema",
+		"type": "group",
+		"icon": "heroicons_outline:chip",
+		"children": [
+			{
+				"id": "core.company",
+				"title": "Empresa",
+				"type": "basic",
+				"icon": "heroicons_outline:office-building",
+				"link": "/core/company"
+			},
+			{
+				"id": "core.validation",
+				"title": "Validaciones",
+				"type": "basic",
+				"icon": "mat_outline:security",
+				"link": "/core/validation"
+			},
+			{
+				"id": "core.access",
+				"title": "Acceso",
+				"type": "collapsable",
+				"icon": "mat_outline:account_tree",
+				"children": [
+					{
+						"id": "core.navigation",
+						"title": "Navegación",
+						"type": "basic",
+						"icon": "heroicons_outline:template",
+						"link": "/core/navigation"
+					},
+					{
+						"id": "core.profile",
+						"title": "Perfil",
+						"type": "basic",
+						"icon": "heroicons_outline:user-group",
+						"link": "/core/profile"
+					},
+					{
+						"id": "core.type-user",
+						"title": "Tipo de usuario",
+						"type": "basic",
+						"icon": "mat_outline:category",
+						"link": "/core/type-user"
+					},
+					{
+						"id": "core.user",
+						"title": "Usuario",
+						"type": "basic",
+						"icon": "heroicons_outline:user",
+						"link": "/core/user"
+					}
+				]
+			},
+			{
+				"id": "core.session",
+				"title": "Sesiones",
+				"type": "basic",
+				"icon": "heroicons_outline:login",
+				"link": "/core/session"
+			},
+			{
+				"id": "core.system-event",
+				"title": "Eventos del sistema",
+				"type": "basic",
+				"icon": "mat_outline:event",
+				"link": "/core/system-event"
+			}
+		]
+	},
+	{
+		"id": "business",
+		"title": "Business",
+		"subtitle": "Administración business del sistema",
+		"type": "group",
+		"icon": "heroicons_outline:cube-transparent",
+		"children": [
+			{
+				"id": "business.taxpayer",
+				"title": "Contribuyente",
+				"type": "basic",
+				"icon": "heroicons_outline:user",
+				"link": "/business/taxpayer"
+			},
+			{
+				"id": "business.voucher",
+				"title": "Comprobantes",
+				"type": "basic",
+				"icon": "heroicons_outline:user",
+				"link": "/business/voucher"
+			},
+			{
+				"id": "business.voucher-sql-server",
+				"title": "Comprobantes SQLServer",
+				"type": "basic",
+				"icon": "heroicons_outline:user",
+				"link": "/business/voucher-sql-server"
+			}
+		]
+	},
+	{
+		"id": "report",
+		"title": "Reportes",
+		"subtitle": "Reportes del sistema",
+		"type": "basic",
+		"link": "/report"
+	}
+]

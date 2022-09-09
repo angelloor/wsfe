@@ -1,0 +1,271 @@
+<div class="relative flex flex-col w-full h-full">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg">{{getTypeSelectVoucher(sequence.type_voucher).name_type + ' - ' +
+            getTypeSelectEnvironment(sequence.type_environment).name_type}}</div>
+        <button mat-icon-button [tabIndex]="-1" (click)="closeModalSequence()">
+            <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+    </div>
+    <div class="flex flex-col flex-auto overflow-y-auto">
+        <div class="flex flex-col w-full">
+            <!-- View mode -->
+            <ng-container *ngIf="!editMode">
+                <!-- Header -->
+                <div
+                    class="relative w-full h-40 flex items-center bg-accent-100 dark:bg-accent-700 place-content-center">
+                    <!-- Background -->
+                    <div class="w-full h-40 bg-black z-10 opacity-0">
+                    </div>
+                    <h1 class="absolute z-20 text-dark text-3xl">{{nameEntity}}
+                    </h1>
+                    <!-- Light version -->
+                    <img class="dark:hidden absolute inset-0 object-cover w-full h-full"
+                        src="assets/images/background.svg">
+                    <!-- Dark version -->
+                    <img class="hidden dark:flex absolute inset-0 object-cover w-full h-full"
+                        src="assets/images/background-on-dark.svg">
+                </div>
+                <!-- Entity -->
+                <div class="relative flex flex-col flex-auto items-center p-6 pt-0 sm:p-12 sm:pt-0">
+                    <div class="w-full max-w-3xl">
+                        <!-- Actions -->
+                        <div
+                            class="flex items-center -mx-6 sm:-mx-12 py-4 pr-6 pl-6 sm:pr-12 sm:pl-12 border-t bg-gray-100 dark:bg-transparent rounded-t-none rounded-b-2xl">
+                            <button class="ml-auto" mat-stroked-button (click)="toggleEditMode(true)">
+                                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:pencil-alt'"></mat-icon>
+                                <span class="ml-1">Editar</span>
+                            </button>
+                        </div>
+                        <div class="flex flex-col space-y-8">
+                            <!-- id_establishment -->
+                            <ng-container *ngIf="sequence.establishment.id_establishment">
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:office-building'"></mat-icon>
+                                    <div class="ml-6 leading-6">{{selectedEstablishment.value_establishment}}</div>
+                                </div>
+                            </ng-container> <!-- id_emission_point -->
+                            <ng-container *ngIf="sequence.emission_point.id_emission_point">
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:printer'"></mat-icon>
+                                    <div class="ml-6 leading-6">{{selectedEmissionPoint.value_emission_point}}</div>
+                                </div>
+                            </ng-container> <!-- type_environment -->
+                            <!-- Type Enum -->
+                            <ng-container *ngIf="sequence.type_environment">
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:globe'"></mat-icon>
+                                    <div class="ml-6 leading-6">{{typeSelectEnvironment.name_type}}</div>
+                                </div>
+                            </ng-container> <!-- type_voucher -->
+                            <!-- Type Enum -->
+                            <ng-container *ngIf="sequence.type_voucher">
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'mat_outline:category'"></mat-icon>
+                                    <div class="ml-6 leading-6">{{typeSelectVoucher.name_type}}</div>
+                                </div>
+                            </ng-container> <!-- number_code_sequence -->
+                            <ng-container *ngIf="sequence.number_code_sequence">
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:hashtag'"></mat-icon>
+                                    <div class="ml-6 leading-6">{{sequence.number_code_sequence}}</div>
+                                </div>
+                            </ng-container> <!-- status_sequence -->
+                            <ng-container>
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:status-online'"></mat-icon>
+                                    <div *ngIf="sequence.status_sequence"
+                                        class="ml-6 mt-1 w-3 h-3 bg-green-700 rounded-full">
+                                    </div>
+                                    <div *ngIf="!sequence.status_sequence"
+                                        class="ml-6 mt-1 w-3 h-3 bg-red-600 rounded-full">
+                                    </div>
+                                </div>
+                            </ng-container> <!-- value_sequence -->
+                            <ng-container *ngIf="sequence.value_sequence">
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:hashtag'"></mat-icon>
+                                    <div class="ml-6 leading-6">{{sequence.value_sequence}}</div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <!-- Edit mode -->
+            <ng-container *ngIf="editMode">
+                <!-- Header -->
+                <div
+                    class="relative w-full h-40 flex items-center bg-accent-100 dark:bg-accent-700 place-content-center">
+                    <!-- Background -->
+                    <div class="w-full h-40 bg-black z-10 opacity-25">
+                    </div>
+                    <h1 class="absolute z-20 text-dark text-3xl">{{nameEntity}}
+                    </h1>
+                    <!-- Light version -->
+                    <img class="dark:hidden absolute inset-0 object-cover w-full h-full"
+                        src="assets/images/background.svg">
+                    <!-- Dark version -->
+                    <img class="hidden dark:flex absolute inset-0 object-cover w-full h-full"
+                        src="assets/images/background-on-dark.svg">
+                </div>
+                <!-- form -->
+                <div class="relative flex flex-col flex-auto items-center px-6 sm:px-12">
+                    <div class="w-full max-w-3xl">
+                        <!-- Actions -->
+                        <div
+                            class="flex items-center -mx-6 sm:-mx-12 py-4 pr-6 pl-6 sm:pr-12 sm:pl-12 border-t bg-gray-100 dark:bg-transparent rounded-t-none rounded-b-2xl">
+                            <!-- Save -->
+                            <button mat-flat-button [color]="'primary'" class="ml-auto"
+                                [disabled]="sequenceForm.invalid" [matTooltip]="'Guardar'" (click)="updateSequence()">
+                                Guardar
+                            </button>
+                            <!-- Delete -->
+                            <button mat-stroked-button class="ml-2" [color]="'warn'" [matTooltip]="'Eliminar'"
+                                (click)="deleteSequence()">
+                                Eliminar
+                            </button>
+                            <!-- Cancel -->
+                            <button mat-stroked-button class="ml-2" [matTooltip]="'Cancelar'"
+                                (click)="toggleEditMode(false)">
+                                Cancelar
+                            </button>
+                        </div>
+                        <form [formGroup]="sequenceForm" class="mb-8">
+                            <!-- Alert -->
+                            <angel-alert class="mt-4 mb-8" *ngIf="sequenceForm.invalid || showAlert"
+                                [appearance]="'outline'" [showIcon]="false" [type]="alert.type"
+                                [@shake]="alert.type === 'error'">
+                                <!-- MessageAPI if alert is actived for the component -->
+                                {{alert.message}}
+                                <!-- id_establishment -->
+                                <mat-error *ngIf="sequenceForm.get('id_establishment')?.hasError('required')">
+                                    • Seleccione el establecimiento
+                                </mat-error>
+                                <!-- id_emission_point -->
+                                <mat-error *ngIf="sequenceForm.get('id_emission_point')?.hasError('required')">
+                                    • Seleccione el punto de emisión
+                                </mat-error>
+                                <!-- type_environment -->
+                                <mat-error *ngIf="sequenceForm.get('type_environment')?.hasError('required')">
+                                    • Seleccione el ambiente de la secuencia
+                                </mat-error>
+                                <!-- type_voucher -->
+                                <mat-error *ngIf="sequenceForm.get('type_voucher')?.hasError('required')">
+                                    • Seleccione el tipo de comprobante electrónico
+                                </mat-error>
+                                <!-- number_code_sequence -->
+                                <mat-error *ngIf="sequenceForm.get('number_code_sequence')?.hasError('required')">
+                                    • Ingrese el código numérico
+                                </mat-error>
+                                <mat-error *ngIf="sequenceForm.get('number_code_sequence')?.hasError('minlength')">
+                                    • El valor mínimo del código numérico 8 caracteres
+                                </mat-error>
+                                <mat-error *ngIf="sequenceForm.get('number_code_sequence')?.hasError('maxlength')">
+                                    • El valor máximo del código numérico 8 caracteres
+                                </mat-error>
+                                <mat-error *ngIf="sequenceForm.get('number_code_sequence')?.hasError('pattern')">
+                                    • El código numérico solo admite números
+                                </mat-error>
+                                <mat-error
+                                    *ngIf="sequenceForm.get('number_code_sequence')?.hasError('cannotContainSpace')">
+                                    • El código numérico no admite espacios en blanco
+                                </mat-error>
+                                <!-- status_sequence -->
+                                <mat-error *ngIf="sequenceForm.get('status_sequence')?.hasError('required')">
+                                    • Seleccione el estado de la secuencia
+                                </mat-error>
+                            </angel-alert>
+                            <!-- Alert -->
+                            <!-- id_establishment -->
+                            <div>
+                                <mat-form-field class="angel-mat-no-subscript w-full">
+                                    <mat-label>Establecimiento</mat-label>
+                                    <mat-select [formControlName]="'id_establishment'"
+                                        [value]="selectedEstablishment.id_establishment">
+                                        <ng-container *ngFor="let category of categoriesEstablishment">
+                                            <mat-option [value]="category.id_establishment"
+                                                [matTooltip]="category.description_establishment">
+                                                {{category.value_establishment}}</mat-option>
+                                        </ng-container>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div><!-- id_emission_point -->
+                            <div class="mt-8">
+                                <mat-form-field class="angel-mat-no-subscript w-full">
+                                    <mat-label>Punto de emisión</mat-label>
+                                    <mat-select [formControlName]="'id_emission_point'"
+                                        [value]="selectedEmissionPoint.id_emission_point">
+                                        <ng-container *ngFor="let category of categoriesEmissionPoint">
+                                            <mat-option [value]="category.id_emission_point"
+                                                [matTooltip]="category.description_emission_point">
+                                                {{category.value_emission_point}}</mat-option>
+                                        </ng-container>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div> <!-- type_environment -->
+                            <!-- Type Enum -->
+                            <div class="mt-8">
+                                <mat-form-field class="angel-mat-no-subscript w-full">
+                                    <mat-label>Ambiente</mat-label>
+                                    <mat-select [formControlName]="'type_environment'">
+                                        <ng-container *ngFor="let type of typeEnvironment">
+                                            <mat-option [value]="type.value_type">
+                                                {{type.name_type}}</mat-option>
+                                        </ng-container>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div> <!-- type_voucher -->
+                            <!-- Type Enum -->
+                            <div class="mt-8">
+                                <mat-form-field class="angel-mat-no-subscript w-full">
+                                    <mat-label>Tipo comprobante</mat-label>
+                                    <mat-select [formControlName]="'type_voucher'">
+                                        <ng-container *ngFor="let type of typeVoucher">
+                                            <mat-option [value]="type.value_type">
+                                                {{type.name_type}}</mat-option>
+                                        </ng-container>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div> <!-- number_code_sequence -->
+                            <div class="mt-8">
+                                <mat-form-field class="angel-mat-no-subscript w-full">
+                                    <mat-label>Codigo numérico</mat-label>
+                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_solid:hashtag'">
+                                    </mat-icon>
+                                    <input matInput maxlength="8" [formControlName]="'number_code_sequence'"
+                                        [placeholder]="'Ingrese el código numérico'" [spellcheck]="false">
+                                </mat-form-field>
+                            </div> <!-- status_sequence -->
+                            <div class="mt-8">
+                                <mat-form-field class="angel-mat-no-subscript w-full">
+                                    <mat-label>Estado</mat-label>
+                                    <mat-select [formControlName]="'status_sequence'">
+                                        <mat-option [value]="true">Activo</mat-option>
+                                        <mat-option [value]="false">Inactivo</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <!-- value_sequence -->
+                            <div class="mt-8">
+                                <mat-form-field class="angel-mat-no-subscript w-full"
+                                    [matTooltip]="'Se usa para formar la clave de acceso'">
+                                    <mat-label>Secuencial
+                                    </mat-label>
+                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_solid:hashtag'">
+                                    </mat-icon>
+                                    <input matInput maxlength="9" [formControlName]="'value_sequence'"
+                                        [placeholder]="'value_sequence'" [spellcheck]="false">
+                                </mat-form-field>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

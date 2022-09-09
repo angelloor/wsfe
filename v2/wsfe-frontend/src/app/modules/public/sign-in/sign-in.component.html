@@ -1,0 +1,115 @@
+<div class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0">
+    <div
+        class="md:flex md:items-center md:justify-end w-full sm:w-auto md:h-full md:w-1/2 py-8 px-4 sm:p-12 md:p-16 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none sm:bg-card">
+        <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
+            <!-- Logo -->
+            <div class="w-12">
+                <img src="assets/images/logo/logo.svg">
+            </div>
+
+            <!-- Title -->
+            <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">Iniciar sesión</div>
+            <div class="flex items-baseline mt-0.5 font-medium">
+                <div>Complete el CAPTCHA y ingrese su número de cédula o ruc</div>
+            </div>
+
+            <!-- Alert -->
+            <angel-alert class="mt-8 -mb-4" *ngIf="signInForm.invalid ||showAlert" [appearance]="'outline'"
+                [showIcon]="false" [type]="alert.type" [@shake]="alert.type === 'error'">
+                {{alert.message}}
+                <!-- name_profile -->
+                <mat-error *ngIf="signInForm.get('recaptcha')?.hasError('required')">
+                    • Pase el CAPTCHA
+                </mat-error>
+                <!-- name_profile -->
+                <mat-error *ngIf="signInForm.get('buyer_identifier_voucher')?.hasError('required')">
+                    • Ingrese el número de cédula o ruc
+                </mat-error>
+            </angel-alert>
+
+            <!-- Sign in form -->
+            <form class="mt-8" [formGroup]="signInForm">
+                <!-- ngx-recaptcha -->
+                <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" (reset)="handleReset()" (expire)="handleExpire()"
+                    (load)="handleLoad()" (success)="handleSuccess($event)" [useGlobalDomain]="false" [size]="size"
+                    [hl]="lang" [theme]="theme" [type]="type" formControlName="recaptcha">
+                </ngx-recaptcha2>
+                <!-- Email field -->
+                <mat-form-field class="w-full mt-8">
+                    <mat-label>Número de cédula o ruc</mat-label>
+                    <input id="email" matInput [formControlName]="'buyer_identifier_voucher'">
+                    <mat-error *ngIf="signInForm.get('email')?.hasError('required')">
+                        Ingresa su número de cédula o ruc
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Actions -->
+                <div class="inline-flex items-end justify-between w-full mt-1.5">
+                    <mat-checkbox [color]="'primary'" [formControlName]="'rememberMeVisitor'">
+                        Recuérdame
+                    </mat-checkbox>
+                </div>
+
+                <!-- Submit button -->
+                <button class="angel-mat-button-large w-full mt-6" mat-flat-button [color]="'primary'"
+                    [disabled]="signInForm.invalid" (click)="signIn()">
+                    <span class="text-white">
+                        Consultar
+                    </span>
+                    <!-- <mat-progress-spinner *ngIf="signInForm.disabled" [diameter]="24" [mode]="'indeterminate'">
+                    </mat-progress-spinner> -->
+                </button>
+                <div *ngIf="isScreenSmall" class="text-center">
+                    <div class="mt-6 font-medium tracking-tight leading-6 text-gray-400">
+                        Para consultar tus facturas anteriores al {{launchingDate}} visita el siguiente <a
+                            class="cursor-pointer" style="color: var(--angel-primary-500)"
+                            (click)="redirect(oldSite)">enlace</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div
+        class="relative hidden md:flex flex-auto items-center justify-center w-1/2 h-full p-16 lg:px-28 overflow-hidden bg-gray-800 dark:border-l">
+        <!-- Background - @formatter:off -->
+        <!-- Rings -->
+        <svg class="absolute inset-0 pointer-events-none" viewBox="0 0 960 540" width="100%" height="100%"
+            preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+            <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
+                <circle r="234" cx="196" cy="23"></circle>
+                <circle r="234" cx="790" cy="491"></circle>
+            </g>
+        </svg>
+        <!-- Dots -->
+        <svg class="absolute -top-16 -right-16 text-gray-700" viewBox="0 0 220 192" width="220" height="192"
+            fill="none">
+            <defs>
+                <pattern id="837c3e70-6c3a-44e6-8854-cc48c737b659" x="0" y="0" width="20" height="20"
+                    patternUnits="userSpaceOnUse">
+                    <rect x="0" y="0" width="4" height="4" fill="currentColor"></rect>
+                </pattern>
+            </defs>
+            <rect width="220" height="192" fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)"></rect>
+        </svg>
+        <!-- @formatter:on -->
+        <!-- Content -->
+        <div class="z-10 relative w-full max-w-2xl">
+            <div class="text-7xl font-bold leading-none text-gray-100">
+                <div>{{_app_data.nameProject}}</div>
+                <div class="text-3xl mt-6">{{_app_data.descriptionProject}}</div>
+            </div>
+            <div class="text-3xl text-md tracking-tight leading-6 text-gray-400 mt-3">
+                {{_app_data.companyProject}}
+            </div>
+            <div class="flex items-center mt-3">
+                <div class="font-medium tracking-tight text-gray-400">{{_app_data.sloganCompany}}</div>
+            </div>
+            <div class="mt-6 font-medium tracking-tight leading-6 text-gray-400">
+                Para consultar tus facturas anteriores al {{launchingDate}} visita el siguiente <a
+                    class="cursor-pointer" style="color: var(--angel-primary-500)"
+                    (click)="redirect(oldSite)">enlace</a>
+            </div>
+        </div>
+    </div>
+</div>
