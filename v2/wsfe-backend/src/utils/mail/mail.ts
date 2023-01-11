@@ -28,7 +28,7 @@ export const sendMail = (
 			 * host: 'smtp.gmail.com'
 			 * port: 465
 			 * secure: true
-			 * user: 'miguelangelloor96@gmail.com'
+			 * user: 'angelloor.dev@gmail.com'
 			 * password: 'kyiufepifrcassms'
 			 */
 			const transporter = nodemailer.createTransport(_SMTPTransport);

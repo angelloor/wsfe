@@ -284,7 +284,7 @@ export const reportByRangeEmissionDateVoucher = async (
 			<body>
 				<div class="reporte">
 					${await generateHeader(
-						'Reporte de comprobantes electronicos',
+						'Reporte de comprobantes electrónicos',
 						query_parameters
 					)}
 					<div class="containerBody">

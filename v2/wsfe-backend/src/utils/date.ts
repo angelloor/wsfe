@@ -44,11 +44,9 @@ export const checkDateString = (stringDate: string): Promise<FullDate> => {
 				!(
 					getFullDate(date.toString()).day === 'NaN' ||
 					getFullDate(date.toString()).month === 'NaN' ||
-					getFullDate(date.toString()).fullYear === NaN ||
 					getFullDate(date.toString()).hours === 'NaN' ||
 					getFullDate(date.toString()).minutes === 'NaN' ||
-					getFullDate(date.toString()).seconds === 'NaN' ||
-					getFullDate(date.toString()).milliSeconds === NaN
+					getFullDate(date.toString()).seconds === 'NaN'
 				)
 			) {
 				resolve(getFullDate(stringDate));

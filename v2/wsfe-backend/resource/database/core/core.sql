@@ -90,7 +90,7 @@ DECLARE
 BEGIN
 	-- Verificar que el usuario no exceda las sesiones segun la configuración de la empresa
 	_SESSION_LIMIT = (select vs.session_limit from core.view_user vu inner join core.view_company vc on vu.id_company = vc.id_company inner join core.view_setting vs on vc.id_setting = vs.id_setting where vu.name_user = _name_user);
-	_SESSION_COUNT = (select count(*) from core.view_session vs inner join core.view_user vu on vs.id_user = vu.id_user where vu.name_user = 'miguelangelloor96@gmail.com' and vs.status_session = true);
+	_SESSION_COUNT = (select count(*) from core.view_session vs inner join core.view_user vu on vs.id_user = vu.id_user where vu.name_user = 'angelloor.dev@gmail.com' and vs.status_session = true);
 	
 	IF (_SESSION_COUNT >= _SESSION_LIMIT) THEN
 		_EXCEPTION = 'Ha excedido el máximo de sesiones activas por usuario';
@@ -175,7 +175,7 @@ BEGIN
 		RAISE EXCEPTION '%',_EXCEPTION USING DETAIL = '_database_auth';
 	END IF;
 END;
-	-- select * from  core.auth_sign_in('miguelangelloor96@gmail.com', 'IvD7dt+mfsPPpD23ZSFPXA==')
+	-- select * from  core.auth_sign_in('angelloor.dev@gmail.com', 'IvD7dt+mfsPPpD23ZSFPXA==')
 	-- select * from core.security_cap_aes_decrypt('IvD7dt+mfsPPpD23ZSFPXA==')
 $BODY$;
 
@@ -250,7 +250,7 @@ BEGIN
 		RAISE EXCEPTION '%',_EXCEPTION USING DETAIL = '_database_auth';
 	END IF;
 END;
--- select * from core.auth_check_user('miguelangelloor96@gmail.com')
+-- select * from core.auth_check_user('angelloor.dev@gmail.com')
 $BODY$;
 
 ALTER FUNCTION core.auth_check_user(character varying)
@@ -315,7 +315,7 @@ BEGIN
 		RAISE EXCEPTION '%',_EXCEPTION USING DETAIL = '_database_auth';
 	END IF;
 END;
--- select * from core.auth_reset_password('miguelangelloor96@gmail.com', 'nuevacontraseña')
+-- select * from core.auth_reset_password('angelloor.dev@gmail.com', 'nuevacontraseña')
 $BODY$;
 
 ALTER FUNCTION core.auth_reset_password(character varying, character varying)
@@ -1000,7 +1000,7 @@ BEGIN
 									END LOOP;
 
 									_CURRENT_ID_USER = (select nextval('core.serial_user')-1);
-									FOR _X IN INSERT INTO core.user(id_user, id_company, id_person, id_type_user, name_user, password_user, avatar_user, status_user, deleted_user) VALUES (_CURRENT_ID_USER, _ID_COMPANY, _ID_PERSON, _ID_TYPE_USER , 'miguelangelloor96@gmail.com', 'IvD7dt+mfsPPpD23ZSFPXA==', 'default.svg', true, false) RETURNING id_user LOOP
+									FOR _X IN INSERT INTO core.user(id_user, id_company, id_person, id_type_user, name_user, password_user, avatar_user, status_user, deleted_user) VALUES (_CURRENT_ID_USER, _ID_COMPANY, _ID_PERSON, _ID_TYPE_USER , 'angelloor.dev@gmail.com', 'IvD7dt+mfsPPpD23ZSFPXA==', 'default.svg', true, false) RETURNING id_user LOOP
 										_ID_USER = _X.id_user;
 									END LOOP;
 									
