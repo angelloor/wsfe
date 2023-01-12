@@ -1,6 +1,6 @@
 import {
 	clientWSFEPostgreSQL,
-	clientWSFESQLServer,
+	clientWSFESQLServer
 } from '../../../utils/conections';
 import { FullDate, getFullDate } from '../../../utils/date';
 import { _messages } from '../../../utils/message/message';

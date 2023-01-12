@@ -71,39 +71,3 @@ export const generateMail = (
 		attachments: attachments,
 	};
 };
-
-// /**
-//  * Enviar el correo al administrador del Api
-//  */
-// export const sendMailAdmin = (correo, body, data, Subject) => {
-// 	return new Promise(async (resolve, reject) => {
-// 		let mensaje = {
-// 			from: `"GADMCP" <${process.env.MAILER_USER}>`,
-// 			to: correo,
-// 			subject: Subject,
-// 			html: `
-//             <div style='color: #500050'>
-//             <strong>Estimado(a),</strong><br>
-//             Administrador<br><br>
-//             Información del proceso<br>
-//             <strong>Institución: </strong> ${body.institucion}<br>
-//             <strong>Fecha: </strong> ${body.fecha}<br>
-//             <br>
-//             Adjunto la respuesta del servidor en formato: <strong>JSON</strong>
-//         `,
-// 			attachments: [
-// 				{
-// 					filename: `${Math.floor(Math.random() * 100)}_${body.fecha}.json`,
-// 					content: JSON.stringify(data),
-// 				},
-// 			],
-// 		};
-// 		await transporterMail(mensaje)
-// 			.then((response) => {
-// 				resolve(response);
-// 			})
-// 			.catch((error) => {
-// 				reject(error);
-// 			});
-// 	});
-// };

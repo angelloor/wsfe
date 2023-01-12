@@ -22,7 +22,7 @@ import {
   TYPE_ENVIRONMENT,
   TYPE_VOUCHER_STATUS,
   TYPE_VOUCHER_STATUS_ENUM,
-  _typeVoucherStatus
+  _typeVoucherStatus,
 } from '../../business.types';
 import { InfoVoucherService } from '../../shared/info-voucher/info-voucher.service';
 import { InstitutionService } from '../../taxpayer/institution/institution.service';
@@ -181,8 +181,7 @@ export class VoucherListComponent implements OnInit {
        * Set query_environment
        */
       if (this.data.query_environment) {
-      this.environment = this.data.query_environment!;
-        
+        this.environment = this.data.query_environment!;
       }
       /**
        * byRangeEmissionDateVoucherRead
@@ -352,7 +351,6 @@ export class VoucherListComponent implements OnInit {
     authorization_date_voucher: string,
     internal_status_voucher: string
   ): void {
-    console.log(environment);
     this._voucherService
       .byRangeEmissionDateVoucherRead(
         environment,

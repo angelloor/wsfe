@@ -7,7 +7,7 @@ import {
 	generateAccessKey,
 	getFullYearByAccessKey,
 	getMothByAccessKey,
-	getSecuencialByAccessKey
+	getSecuencialByAccessKey,
 } from '../../../utils/accessKey';
 import { Alfresco } from '../../../utils/alfresco/alfresco';
 import {
@@ -15,25 +15,25 @@ import {
 	Models,
 	Path,
 	Sities,
-	Types
+	Types,
 } from '../../../utils/alfresco/alfresco.types';
 import {
 	FullDate,
 	getFullDate,
 	parseDateToString,
-	parseDateToStringWithTimeZone
+	parseDateToStringWithTimeZone,
 } from '../../../utils/date';
 import { generateFolder } from '../../../utils/generateFolder';
 import {
 	generateDetalle,
 	generateInfoAdicional,
 	generatePagos,
-	generateTotalConImpuestos
+	generateTotalConImpuestos,
 } from '../../../utils/generateXmlContent';
 import {
 	addCero,
 	deleteAmpersand,
-	generateRandomNumber
+	generateRandomNumber,
 } from '../../../utils/global';
 import { generateToken } from '../../../utils/jwt';
 import { generateMail, sendMail } from '../../../utils/mail/mail';
@@ -44,7 +44,7 @@ import { SecurityCap } from '../../../utils/SecurityCap';
 import { signVoucher } from '../../../utils/signSHA1';
 import {
 	autorizacionComprobante,
-	validarComprobante
+	validarComprobante,
 } from '../../../utils/wsSRI';
 import {
 	Company,
@@ -53,7 +53,7 @@ import {
 	Profile,
 	Setting,
 	TypeUser,
-	User
+	User,
 } from '../../core/auth/auth.types';
 import { Setting as SettingCompany } from '../../core/company/setting/setting.class';
 import { User as UserClass } from '../../core/user/user.class';
@@ -61,7 +61,7 @@ import { Report } from '../../report/report.class';
 import {
 	reportByRangeEmissionDateVoucher,
 	reportResumeVouchersOfSQLServer,
-	reportVouchersOfSQLServer
+	reportVouchersOfSQLServer,
 } from '../../report/report.declarate';
 import {
 	BodyVoucher,
@@ -85,7 +85,7 @@ import {
 	VoucherSQLServer,
 	_bodyVoucher,
 	_typeServices,
-	_typeVoucher
+	_typeVoucher,
 } from '../business.types';
 import { Institution } from '../institution/institution.class';
 import { _institution } from '../institution/institution.data';
@@ -119,7 +119,7 @@ import {
 	view_voucher_by_range_emission_date_voucher_read,
 	view_voucher_of_sqlserver_by_parameter_read,
 	view_voucher_of_sqlserver_read,
-	view_voucher_specific_read
+	view_voucher_specific_read,
 } from './voucher.store';
 
 const setTimeoutPromise = util.promisify(setTimeout);

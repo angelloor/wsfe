@@ -1,5 +1,13 @@
 import express from 'express';
 import { error, success } from '../../../network/response';
+import { FullDate, getFullDate } from '../../../utils/date';
+import { generateRandomNumber } from '../../../utils/global';
+import { generateMail, sendMail } from '../../../utils/mail/mail';
+import {
+	bringVouchersOfSQLServerMail,
+	sendVoucherMail,
+} from '../../../utils/mail/mail.declarate';
+import { Attachments } from '../../../utils/mail/mail.types';
 import { MessageAPI } from '../../../utils/message/message.type';
 import { Voucher } from './voucher.class';
 import { validation } from './voucher.controller';
@@ -234,8 +242,35 @@ routerVoucher.post(
 	'/sendVoucherByBatchByInstitution',
 	async (req: any, res: any) => {
 		await validation(req.body, req.url, req.headers.token)
-			.then((voucher: Voucher) => {
-				success(res, voucher);
+			.then((vouchers: Voucher) => {
+				const date: FullDate = getFullDate(new Date().toDateString());
+
+				const attachments: Attachments[] = [
+					{
+						filename: `${generateRandomNumber(6)}_${date.day}-${date.month}-${
+							date.fullYear
+						}.json`,
+						content: JSON.stringify(vouchers),
+					},
+				];
+
+				const generatedMail = generateMail(
+					`"WSFE" <${process.env.MAILER_USER}>`,
+					process.env.ADMIN_MAIL,
+					'sendVoucherByBatchByInstitution',
+					sendVoucherMail(),
+					attachments
+				);
+
+				sendMail(generatedMail)
+					.then((response) => {
+						console.log(response);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+
+				success(res, vouchers);
 			})
 			.catch((err: MessageAPI | any) => {
 				error(res, err);
@@ -247,8 +282,35 @@ routerVoucher.post(
 	'/sendVoucherByBatchByTaxpayer',
 	async (req: any, res: any) => {
 		await validation(req.body, req.url, req.headers.token)
-			.then((voucher: Voucher) => {
-				success(res, voucher);
+			.then((vouchers: string[]) => {
+				const date: FullDate = getFullDate(new Date().toDateString());
+
+				const attachments: Attachments[] = [
+					{
+						filename: `${generateRandomNumber(6)}_${date.day}-${date.month}-${
+							date.fullYear
+						}.json`,
+						content: JSON.stringify(vouchers),
+					},
+				];
+
+				const generatedMail = generateMail(
+					`"WSFE" <${process.env.MAILER_USER}>`,
+					process.env.ADMIN_MAIL,
+					'sendVoucherByBatchByTaxpayer',
+					sendVoucherMail(),
+					attachments
+				);
+
+				sendMail(generatedMail)
+					.then((response) => {
+						console.log(response);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+
+				success(res, vouchers);
 			})
 			.catch((err: MessageAPI | any) => {
 				error(res, err);
@@ -292,6 +354,32 @@ routerVoucher.post(
 routerVoucher.post('/bringVouchersOfSQLServer', async (req: any, res: any) => {
 	await validation(req.body, req.url, req.headers.token)
 		.then((voucher: Voucher) => {
+			const date: FullDate = getFullDate(new Date().toDateString());
+
+			const attachments: Attachments[] = [
+				{
+					filename: `${generateRandomNumber(6)}_${date.day}-${date.month}-${
+						date.fullYear
+					}.json`,
+					content: JSON.stringify(voucher),
+				},
+			];
+
+			const generatedMail = generateMail(
+				`"WSFE" <${process.env.MAILER_USER}>`,
+				process.env.ADMIN_MAIL,
+				'bringVouchersOfSQLServer',
+				bringVouchersOfSQLServerMail(),
+				attachments
+			);
+
+			sendMail(generatedMail)
+				.then((response) => {
+					console.log(response);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 			success(res, voucher);
 		})
 		.catch((err: MessageAPI | any) => {

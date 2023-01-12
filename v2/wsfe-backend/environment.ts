@@ -22,6 +22,7 @@ declare global {
 			MAILER_PASSWORD: string;
 			KEY_JWT: string;
 			PASS_ENCRYPT: string;
+			ADMIN_MAIL: string;
 			// ONLY GADMCP
 			IVA: string;
 		}
