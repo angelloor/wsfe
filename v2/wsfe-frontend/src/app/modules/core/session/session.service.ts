@@ -113,7 +113,6 @@ export class SessionService {
         })
       );
   }
-
   /**
    * byUserRead
    * @param idSession
