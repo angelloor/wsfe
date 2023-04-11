@@ -1,0 +1,94 @@
+sudo apt update
+sudo apt install wget curl ca-certificates
+
+
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo apt-get update
+sudo apt-get -y install postgresql-13
+
+
+sudo passwd postgres
+
+
+su postgres
+psql
+alter user postgres with password 'F$puyo$2021';
+
+
+systemctl status postgresql
+systemctl start postgresql
+systemctl restart postgresql
+
+
+find -iname "pg_hba.conf"
+find -iname "postgresql.conf"
+
+sudo vi /etc/postgresql/13/main/pg_hba.conf
+IPV4
+host    all             all             localhost/32   md5
+host    all             all             172.18.1.176/32   md5
+host    all             all             172.18.2.3/32   md5
+
+sudo vi /etc/postgresql/13/main/postgresql.conf
+listen_addresses = '172.18.1.176' 
+
+
+
+ip a list
+
+
+CREATE USER apiwsfe PASSWORD 'F$puyo$2021';
+ALTER ROLE apiwsfe WITH SUPERUSER;
+
+
+instalar nodejs
+https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04-es
+https://es.quora.com/C%C3%B3mo-desinstalar-completamente-Node-js-y-reinstalar-la-%C3%BAltima-versi%C3%B3n-de-Node-js
+
+
+sudo apt update
+sudo apt install nodejs
+nodejs -v
+sudo apt install npm
+npm -v
+
+npm install pm2 -g
+
+sudo passwd root
+
+sudo npm i -g node-gyp
+sudo npm i -g node-pre-gyp
+node-pre-gyp
+
+
+solucion libreria pupperter
+const browser = await puppeteer.launch({ ignoreDefaultArgs: ['--disable-extensions'], headless: true, args: ['--no-sandbox'] })
+
+ejecutar el servidor con un usuario deferente a root
+
+cd /home/wsfe-api/node_modules/puppeteer/.local-chromium/linux-884014
+
+sudo apt-get install ca-certificates fonts-liberation libappindicator3-1 libasound2 libatk-bridge2.0-0 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgbm1 libgcc1 libglib2.0-0 libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 lsb-release wget xdg-utils
+
+sudo apt-get update && apt-get install -y gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2. 0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc ++ 6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtind6 carat lanzar xdg-utils wget
+
+
+
+Problemas con el Puerto 80
+
+Otorgue permiso de usuario seguro para usar el puerto 80
+
+Recuerde, NO queremos ejecutar sus aplicaciones como usuario root, pero hay un problema: su usuario seguro no tiene permiso para usar el puerto HTTP predeterminado (80). Su objetivo es poder publicar un sitio web que los visitantes puedan usar navegando a una URL fácil de usar como http: // ip: port /
+
+Desafortunadamente, a menos que inicie sesión como root, normalmente tendrá que usar una URL como http: // ip: port, donde el número de puerto> 1024.
+
+Mucha gente se queda atascada aquí, pero la solución es fácil. Hay algunas opciones, pero esta es la que me gusta. Escriba los siguientes comandos:
+
+> sudo apt-get install libcap2-bin 
+> sudo setcap cap_net_bind_service=+ep `readlink -f \`which node\`` 
+Ahora, cuando le dice a una aplicación de nodo que desea que se ejecute en el puerto 80, no se quejará.
+
+
+problema con las rutas en https: no se puede concatenar fechas en la url ya que interpreta como no seguras
+

@@ -1,0 +1,30 @@
+https://www.securitydata.net.ec/wp-content/downloads/Normativas/p_certificacion/Ocsp_DPC.pdf
+
+https://www.securitydata.net.ec/wp-content/downloads/Normativas/p_certificacion/declaracion.pdf
+
+https://www.eci.bce.ec/ocsp
+
+
+https://www.icert.fje.gob.ec/ocsp 
+
+ocsp -issuer D:\Escritorio\cert.pem -cert D:\Escritorio\cert.pem -url  -resp_text -respout resp.der
+
+ocsp -url http://ocsp.eci.bce.ec/ejbca/publicweb/status/ocsp -issuer D:\Escritorio\cacert.pem -serial 5b660436
+
+
+https://empresas.blogthinkbig.com/funcionamiento-de-ocsp-con-certificate/
+
+
+
+openssl s_client -connect maybank.co.id:443 2>&1 < /dev/null | sed -n '/-----BEGIN/,/-----END/p' > maybank.pem
+
+openssl s_client -connect maybank.co.id:443 2>&1 < /dev/null | sed -n '/-----BEGIN/,/-----END/p' > maybank.pem
+
+
+openssl s_client www.pachaappec.com:443 sed -n '/-----BEGIN/,/-----END/p' > pacha.pem
+
+
+openssl s_client -connect www.pachaappec.com:443 > maybank.pem
+
+
+openssl x509 -noout -text -in pacha.pem | grep -A 4 'X509v3 CRL Distribution Points'
