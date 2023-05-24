@@ -1,8 +1,10 @@
 {
 	"info": {
-		"_postman_id": "9a8f1d17-b2d8-4f21-a7f9-c1123735999e",
+		"_postman_id": "4aa08efb-cd9c-4f61-b26a-2f8f3560ec38",
 		"name": "WSFE",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"description": "StartFragment\n\nWSFE Api es un servicio que hace de middleware con la facturación electrónica del SRI\n\n**Características** 📋\n\nv 1.0\n\n- Modo de emisión: al instante (instante, posterior).\n- Envió de correo al cliente adjuntando XML y PDF.\n- Registro de comprobantes en Alfresco (XML).\n- Portal de consulta para los comprobantes generados.\n- Consultar estado de un comprobante en el SRI.\n- Autorización individual de comprobantes.\n- Consulta la información de una factura en el API.\n- Envió por Lote.\n    \n\nv 2.0\n\n- Administración del número de comprobante según el ambiente de cada institución.\n- Soporte para valores extras en el RIDE.\n- Corrección bugs v 1.0.\n    \n\nv 3.0\n\n- Soporte para resolver problemas en la actualización en lote.\n- Soporte para completar los procesos (accionpdf, accioncorreo, accionalfresco).\n- Corrección bugs v 2.0.\n    \n\nPróximos Pasos\n\n- Soporte en la información adicional en el detalle, trabajar con ingeniería inversa para descubrir cual es el inconveniente con la información adicional.\n- Implementar protocolo OCSP para (X509IssuerName independiente).\n- Implementar algoritmo de firmado sha256.  \n    \n\nEndFragment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23199615"
 	},
 	"item": [
 		{
@@ -21,7 +23,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"name_user\": \"angelloor.dev@gmail.com\",\r\n    \"password_user\": \"IvD7dt+mfsPPpD23ZSFPXA==\"\r\n}",
+											"raw": "{\r\n    \"name_user\": \"angelloor.dev@gmail.com\",\r\n    \"password_user\": \"J0oxaiK1wrJ1puhHL7dc9Q==\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -30,9 +32,17 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/auth/sign-in",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "auth", "sign-in"]
-										}
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"auth",
+												"sign-in"
+											]
+										},
+										"description": "Permite generar una sesión dentro de la aplicación."
 									},
 									"response": []
 								},
@@ -52,9 +62,17 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/auth/refresh-access-token",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "auth", "refresh-access-token"]
-										}
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"auth",
+												"refresh-access-token"
+											]
+										},
+										"description": "Permite actualizar el token actual para evitar el sesión caducada."
 									},
 									"response": []
 								},
@@ -65,7 +83,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"name_user\": \"angelloor.dev@gmail.com\",\r\n    \"password_user\": \"IvD7dt+mfsPPpD23ZSFPXA==\"\r\n} ",
+											"raw": "{\r\n    \"name_user\": \"miguelangelloor96@gmail.com\",\r\n    \"password_user\": \"IvD7dt+mfsPPpD23ZSFPXA==\"\r\n} ",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -74,9 +92,17 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/auth/unlock-session",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "auth", "unlock-session"]
-										}
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"auth",
+												"unlock-session"
+											]
+										},
+										"description": "Permite desbloquear una sesión obteniendo un nuevo token."
 									},
 									"response": []
 								},
@@ -96,9 +122,17 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/auth/check-session",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "auth", "check-session"]
-										}
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"auth",
+												"check-session"
+											]
+										},
+										"description": "Permite verificar si la sesión se encuentra activa."
 									},
 									"response": []
 								},
@@ -118,9 +152,17 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/auth/sign-out",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "auth", "sign-out"]
-										}
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"auth",
+												"sign-out"
+											]
+										},
+										"description": "Permite cerrar sesión correctamente. (Base de datos)"
 									},
 									"response": []
 								},
@@ -131,7 +173,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"name_user\": \"angelloor.dev@gmail.com\"\r\n}",
+											"raw": "{\r\n    \"name_user\": \"miguelangelloor96@gmail.com\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -140,9 +182,17 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/auth/forgot-password",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "auth", "forgot-password"]
-										}
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"auth",
+												"forgot-password"
+											]
+										},
+										"description": "Permite generar un token para el cambio de contraseña de un usuario."
 									},
 									"response": []
 								},
@@ -153,7 +203,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"name_user\": \"angelloor.dev@gmail.com\",\r\n    \"password_user\": \"IvD7dt+mfsPPpD23ZSFPXA==\"\r\n}",
+											"raw": "{\r\n    \"name_user\": \"miguelangelloor96@gmail.com\",\r\n    \"password_user\": \"IvD7dt+mfsPPpD23ZSFPXA==\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -162,9 +212,17 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/auth/reset-password",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "auth", "reset-password"]
-										}
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"auth",
+												"reset-password"
+											]
+										},
+										"description": "Permite realizar el cambio de contraseña de un usuario."
 									},
 									"response": []
 								},
@@ -184,9 +242,17 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/auth/sign-up",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "auth", "sign-up"]
-										}
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"auth",
+												"sign-up"
+											]
+										},
+										"description": "Permite registrarse dentro de la aplicación. (No programado)"
 									},
 									"response": []
 								},
@@ -206,13 +272,22 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/auth/confirmation-required",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "auth", "confirmation-required"]
-										}
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"auth",
+												"confirmation-required"
+											]
+										},
+										"description": "Permite enviar un codigo de verificación para realizar ciertas acciones. (No programado)"
 									},
 									"response": []
 								}
-							]
+							],
+							"description": "Módulo de autentificación de la aplicación."
 						},
 						{
 							"name": "company",
@@ -239,9 +314,17 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/company/create",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "company", "create"]
-										}
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"company",
+												"create"
+											]
+										},
+										"description": "Permite crear una empresa."
 									},
 									"response": []
 								},
@@ -258,9 +341,18 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/company/read/query-all",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "company", "read", "query-all"]
-										}
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"company",
+												"read",
+												"query-all"
+											]
+										},
+										"description": "Si se envía como esta permite traer todas las empresas registradas, pero si se remplaza el query-all por un nombre o carácter, trae las posibles coincidencias."
 									},
 									"response": []
 								},
@@ -277,9 +369,18 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/company/specificRead/1",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "company", "specificRead", "1"]
-										}
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"company",
+												"specificRead",
+												"1"
+											]
+										},
+										"description": "Permite traer una empresa en específico enviando como parámetro el id."
 									},
 									"response": []
 								},
@@ -305,9 +406,17 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/company/update",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "company", "update"]
-										}
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"company",
+												"update"
+											]
+										},
+										"description": "Permite actualizar la información de una empresa."
 									},
 									"response": []
 								},
@@ -324,8 +433,15 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/company/delete?id_user_=1&id_company=4",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "company", "delete"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"company",
+												"delete"
+											],
 											"query": [
 												{
 													"key": "id_user_",
@@ -336,11 +452,13 @@
 													"value": "4"
 												}
 											]
-										}
+										},
+										"description": "Permite eliminar una empresa siempre y cuando no mantenga dependencias con otros procesos. (SQL Restriction)."
 									},
 									"response": []
 								}
-							]
+							],
+							"description": "Contiene los Endpoints para la administración de las empresas dentro de la aplicación.  \nUna empresa es una entidad general que se maneja bajo ciertos criterios dependiendo su lógica de negocio, cada empresa tiene ciertos parámetros de configuración que determinan el funcionamiento de la aplicación."
 						},
 						{
 							"name": "validation",
@@ -367,9 +485,17 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/validation/create",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "validation", "create"]
-										}
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"validation",
+												"create"
+											]
+										},
+										"description": "Permite crear una una validación."
 									},
 									"response": []
 								},
@@ -386,9 +512,18 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/validation/read/query-all",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "validation", "read", "query-all"]
-										}
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"validation",
+												"read",
+												"query-all"
+											]
+										},
+										"description": "Si se envía como esta permite traer todas las validaciones registradas, pero si se remplaza el query-all por un nombre o carácter, trae las posibles coincidencias."
 									},
 									"response": []
 								},
@@ -405,9 +540,18 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/validation/specificRead/1",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "validation", "specificRead", "1"]
-										}
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"validation",
+												"specificRead",
+												"1"
+											]
+										},
+										"description": "Permite traer una validación en específico enviando como parámetro el id."
 									},
 									"response": []
 								},
@@ -424,7 +568,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/validation/byTypeValidationRead/validationPassword",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"core",
@@ -458,9 +604,17 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/validation/update",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "validation", "update"]
-										}
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"validation",
+												"update"
+											]
+										},
+										"description": "Permite actualizar la información de una validación."
 									},
 									"response": []
 								},
@@ -477,8 +631,15 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/validation/delete?id_user_=1&id_validation=1",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "validation", "delete"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"validation",
+												"delete"
+											],
 											"query": [
 												{
 													"key": "id_user_",
@@ -493,7 +654,8 @@
 									},
 									"response": []
 								}
-							]
+							],
+							"description": "Contiene los Endpoints para la administración de las validaciones dentro de la aplicación.  \nUna validación es permite controlar el ingreso de cierta información, por ejemplo validaciones para contraseñas, para número de cedula y teléfonos."
 						},
 						{
 							"name": "navigation",
@@ -520,8 +682,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/navigation/create",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "navigation", "create"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"navigation",
+												"create"
+											]
 										}
 									},
 									"response": []
@@ -539,8 +708,16 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/navigation/read/ho",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "navigation", "read", "ho"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"navigation",
+												"read",
+												"ho"
+											]
 										}
 									},
 									"response": []
@@ -558,8 +735,16 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/navigation/specificRead/1",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "navigation", "specificRead", "1"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"navigation",
+												"specificRead",
+												"1"
+											]
 										}
 									},
 									"response": []
@@ -586,8 +771,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/navigation/update",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "navigation", "update"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"navigation",
+												"update"
+											]
 										}
 									},
 									"response": []
@@ -605,8 +797,15 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/navigation/delete?id_user_=1&id_navigation=5",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "navigation", "delete"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"navigation",
+												"delete"
+											],
 											"query": [
 												{
 													"key": "id_user_",
@@ -648,8 +847,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/profile/create",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "profile", "create"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"profile",
+												"create"
+											]
 										}
 									},
 									"response": []
@@ -667,8 +873,16 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/profile/read/query-all",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "profile", "read", "query-all"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"profile",
+												"read",
+												"query-all"
+											]
 										}
 									},
 									"response": []
@@ -686,8 +900,16 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/profile/specificRead/1",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "profile", "specificRead", "1"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"profile",
+												"specificRead",
+												"1"
+											]
 										}
 									},
 									"response": []
@@ -714,8 +936,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/profile/update",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "profile", "update"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"profile",
+												"update"
+											]
 										}
 									},
 									"response": []
@@ -733,8 +962,15 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/profile/delete?id_user_=1&id_profile=4",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "profile", "delete"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"profile",
+												"delete"
+											],
 											"query": [
 												{
 													"key": "id_user_",
@@ -776,8 +1012,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/profile_navigation/create",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "profile_navigation", "create"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"profile_navigation",
+												"create"
+											]
 										}
 									},
 									"response": []
@@ -795,7 +1038,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/profile_navigation/byProfileRead/1",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"core",
@@ -820,7 +1065,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/profile_navigation/specificRead/1",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"core",
@@ -854,8 +1101,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/profile_navigation/update",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "profile_navigation", "update"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"profile_navigation",
+												"update"
+											]
 										}
 									},
 									"response": []
@@ -873,8 +1127,15 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/profile_navigation/delete?id_user_=1&id_profile_navigation=2",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "profile_navigation", "delete"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"profile_navigation",
+												"delete"
+											],
 											"query": [
 												{
 													"key": "id_user_",
@@ -916,8 +1177,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/type_user/create",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "type_user", "create"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"type_user",
+												"create"
+											]
 										}
 									},
 									"response": []
@@ -935,8 +1203,16 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/type_user/read/query-all",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "type_user", "read", "query-all"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"type_user",
+												"read",
+												"query-all"
+											]
 										}
 									},
 									"response": []
@@ -954,8 +1230,16 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/type_user/specificRead/1",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "type_user", "specificRead", "1"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"type_user",
+												"specificRead",
+												"1"
+											]
 										}
 									},
 									"response": []
@@ -982,8 +1266,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/type_user/update",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "type_user", "update"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"type_user",
+												"update"
+											]
 										}
 									},
 									"response": []
@@ -1001,8 +1292,15 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/type_user/delete?id_user_=1&id_type_user=2",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "type_user", "delete"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"type_user",
+												"delete"
+											],
 											"query": [
 												{
 													"key": "id_user_",
@@ -1044,8 +1342,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/user/create",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "user", "create"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"user",
+												"create"
+											]
 										}
 									},
 									"response": []
@@ -1063,8 +1368,16 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/user/read/query-all",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "user", "read", "query-all"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"user",
+												"read",
+												"query-all"
+											]
 										}
 									},
 									"response": []
@@ -1082,8 +1395,16 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/user/specificRead/1",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "user", "specificRead", "1"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"user",
+												"specificRead",
+												"1"
+											]
 										}
 									},
 									"response": []
@@ -1110,8 +1431,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/user/update",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "user", "update"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"user",
+												"update"
+											]
 										}
 									},
 									"response": []
@@ -1129,8 +1457,15 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/user/delete?id_user_=1&id_user=2",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "user", "delete"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"user",
+												"delete"
+											],
 											"query": [
 												{
 													"key": "id_user_",
@@ -1173,8 +1508,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/user/uploadAvatar",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "user", "uploadAvatar"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"user",
+												"uploadAvatar"
+											]
 										}
 									},
 									"response": []
@@ -1201,8 +1543,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/user/removeAvatar",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "user", "removeAvatar"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"user",
+												"removeAvatar"
+											]
 										}
 									},
 									"response": []
@@ -1229,8 +1578,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/user/reportUser",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "user", "reportUser"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"user",
+												"reportUser"
+											]
 										}
 									},
 									"response": []
@@ -1253,8 +1609,16 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/session/read/query-all",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "session", "read", "query-all"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"session",
+												"read",
+												"query-all"
+											]
 										}
 									},
 									"response": []
@@ -1272,8 +1636,16 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/session/specificRead/3",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "session", "specificRead", "3"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"session",
+												"specificRead",
+												"3"
+											]
 										}
 									},
 									"response": []
@@ -1291,8 +1663,16 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/session/byUserRead/1",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "session", "byUserRead", "1"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"session",
+												"byUserRead",
+												"1"
+											]
 										}
 									},
 									"response": []
@@ -1319,8 +1699,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/session/bySessionRelease",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "session", "bySessionRelease"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"session",
+												"bySessionRelease"
+											]
 										}
 									},
 									"response": []
@@ -1347,8 +1734,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/session/byUserReleaseAll",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "session", "byUserReleaseAll"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"session",
+												"byUserReleaseAll"
+											]
 										}
 									},
 									"response": []
@@ -1375,8 +1769,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/session/byCompanyReleaseAll",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "core", "session", "byCompanyReleaseAll"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"core",
+												"session",
+												"byCompanyReleaseAll"
+											]
 										}
 									},
 									"response": []
@@ -1399,7 +1800,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/system_event/read/query-all",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"core",
@@ -1424,7 +1827,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/core/system_event/specificRead/1",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"core",
@@ -1438,7 +1843,8 @@
 								}
 							]
 						}
-					]
+					],
+					"description": "Esquema Core de la aplicación. (Auth, usuarios, perfiles, navegaciones, etc.)"
 				},
 				{
 					"name": "business",
@@ -1468,8 +1874,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/taxpayer/create",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "taxpayer", "create"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"taxpayer",
+												"create"
+											]
 										}
 									},
 									"response": []
@@ -1487,7 +1900,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/taxpayer/read/query-all",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -1512,7 +1927,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/taxpayer/specificRead/1",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -1546,8 +1963,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/taxpayer/update",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "taxpayer", "update"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"taxpayer",
+												"update"
+											]
 										}
 									},
 									"response": []
@@ -1574,7 +1998,9 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/taxpayer/changeStatusByBatchTaxpayer",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -1598,8 +2024,15 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/taxpayer/delete?id_user_=1&id_taxpayer=4",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "taxpayer", "delete"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"taxpayer",
+												"delete"
+											],
 											"query": [
 												{
 													"key": "id_user_",
@@ -1647,8 +2080,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/taxpayer/uploadSignature",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "taxpayer", "uploadSignature"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"taxpayer",
+												"uploadSignature"
+											]
 										}
 									},
 									"response": []
@@ -1675,8 +2115,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/taxpayer/removeSignature",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "taxpayer", "removeSignature"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"taxpayer",
+												"removeSignature"
+											]
 										}
 									},
 									"response": []
@@ -1703,7 +2150,9 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/taxpayer/downloadSignature",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -1741,8 +2190,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/mail_server/create",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "mail_server", "create"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"mail_server",
+												"create"
+											]
 										}
 									},
 									"response": []
@@ -1760,7 +2216,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/mail_server/read/query-all",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -1785,7 +2243,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/mail_server/byTaxpayerRead/2/query-all",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -1811,7 +2271,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/mail_server/specificRead/1",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -1845,8 +2307,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/mail_server/update",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "mail_server", "update"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"mail_server",
+												"update"
+											]
 										}
 									},
 									"response": []
@@ -1864,8 +2333,15 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/mail_server/delete?id_user_=1&id_mail_server=1",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "mail_server", "delete"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"mail_server",
+												"delete"
+											],
 											"query": [
 												{
 													"key": "id_user_",
@@ -1898,7 +2374,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/setting_taxpayer/read/query-all",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -1923,7 +2401,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/setting_taxpayer/specificRead/3",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -1957,8 +2437,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/setting_taxpayer/update",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "setting_taxpayer", "update"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"setting_taxpayer",
+												"update"
+											]
 										}
 									},
 									"response": []
@@ -1996,7 +2483,9 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/setting_taxpayer/uploadLogo",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2029,7 +2518,9 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/setting_taxpayer/removeLogo",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2062,7 +2553,9 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/setting_taxpayer/downloadLogo",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2100,8 +2593,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/institution/create",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "institution", "create"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"institution",
+												"create"
+											]
 										}
 									},
 									"response": []
@@ -2119,7 +2619,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/institution/read/query-all",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2144,7 +2646,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/institution/byTaxpayerRead/1/query-all",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2170,7 +2674,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/institution/specificRead/1",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2204,8 +2710,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/institution/update",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "institution", "update"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"institution",
+												"update"
+											]
 										}
 									},
 									"response": []
@@ -2232,7 +2745,9 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/institution/changeStatusByBatchInstitution",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2256,8 +2771,15 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/institution/delete?id_user_=1&id_institution=1",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "institution", "delete"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"institution",
+												"delete"
+											],
 											"query": [
 												{
 													"key": "id_user_",
@@ -2299,8 +2821,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/establishment/create",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "establishment", "create"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"establishment",
+												"create"
+											]
 										}
 									},
 									"response": []
@@ -2318,7 +2847,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/establishment/read/query-all",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2343,7 +2874,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/establishment/byTaxpayerRead/1/query-all",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2369,7 +2902,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/establishment/specificRead/1",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2403,8 +2938,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/establishment/update",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "establishment", "update"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"establishment",
+												"update"
+											]
 										}
 									},
 									"response": []
@@ -2422,8 +2964,15 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/establishment/delete?id_user_=1&id_establishment=1",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "establishment", "delete"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"establishment",
+												"delete"
+											],
 											"query": [
 												{
 													"key": "id_user_",
@@ -2465,8 +3014,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/emission_point/create",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "emission_point", "create"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"emission_point",
+												"create"
+											]
 										}
 									},
 									"response": []
@@ -2484,7 +3040,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/emission_point/read/query-all",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2509,7 +3067,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/emission_point/byTaxpayerRead/1/query-all",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2535,7 +3095,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/emission_point/specificRead/1",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2569,8 +3131,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/emission_point/update",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "emission_point", "update"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"emission_point",
+												"update"
+											]
 										}
 									},
 									"response": []
@@ -2588,8 +3157,15 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/emission_point/delete?id_user_=1&id_emission_point=1",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "emission_point", "delete"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"emission_point",
+												"delete"
+											],
 											"query": [
 												{
 													"key": "id_user_",
@@ -2631,8 +3207,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/sequence/create",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "sequence", "create"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"sequence",
+												"create"
+											]
 										}
 									},
 									"response": []
@@ -2650,7 +3233,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/sequence/read/query-all",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2675,7 +3260,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/sequence/byInstitutionRead/1/query-all",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2701,7 +3288,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/sequence/specificRead/3",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2735,8 +3324,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/sequence/update",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "sequence", "update"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"sequence",
+												"update"
+											]
 										}
 									},
 									"response": []
@@ -2754,8 +3350,15 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/sequence/delete?id_user_=1&id_sequence=5",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "sequence", "delete"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"sequence",
+												"delete"
+											],
 											"query": [
 												{
 													"key": "id_user_",
@@ -2788,7 +3391,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"id_user_\": 1,\r\n    \"instantly\": true,\r\n    \"institution\": {\r\n        \"id_institution\": 2\r\n    },\r\n    \"type_voucher\": \"01\",\r\n    \"body_voucher\": {\r\n        \"tipoIdentificacionComprador\": \"05\",\r\n        \"guiaRemision\": \"001-001-000000001\",\r\n        \"razonSocialComprador\": \"ANGEL LOOR\",\r\n        \"identificacionComprador\": \"1600744443\",\r\n        \"direccionComprador\": \"PUYO\",\r\n        \"totalSinImpuestos\": 300.5,\r\n        \"totalDescuento\": 0,\r\n        \"totalConImpuestos\": [\r\n            {\r\n                \"codigo\": 2,\r\n                \"codigoPorcentaje\": 2,\r\n                \"descuentoAdicional\": 0,\r\n                \"baseImponible\": 300.5,\r\n                \"valor\": 36.06\r\n            }\r\n        ],\r\n        \"propina\": 0,\r\n        \"importeTotal\": 336.56,\r\n        \"moneda\": \"DOLAR\",\r\n        \"pagos\": [\r\n            {\r\n                \"formaPago\": \"01\",\r\n                \"total\": 336.56,\r\n                \"plazo\": 0,\r\n                \"unidadTiempo\": \"dias\"\r\n            }\r\n        ],\r\n        \"valorRetIva\": 0,\r\n        \"valorRetRenta\": 0,\r\n        \"detalles\": [\r\n            {\r\n                \"codigoPrincipal\": \"001\",\r\n                \"codigoAuxiliar\": \"PAGINA-WEB\",\r\n                \"descripcion\": \"Página web - Local comercial - La ñaña\",\r\n                \"cantidad\": 1,\r\n                \"precioUnitario\": 300.5,\r\n                \"descuento\": 0,\r\n                \"precioTotalSinImpuesto\": 300.5,\r\n                \"impuestos\": [\r\n                    {\r\n                        \"codigo\": 2,\r\n                        \"codigoPorcentaje\": 2,\r\n                        \"tarifa\": 12,\r\n                        \"baseImponible\": 300.5,\r\n                        \"valor\": 36.06\r\n                    }\r\n                ]\r\n            }\r\n        ],\r\n        \"infoAdicional\": [\r\n            {\r\n                \"correo\": \"angelloor.dev@gmail.com\"\r\n            }\r\n        ],\r\n        \"valoresExtras\": {\r\n            \"tasaProcesamiento\": 1,\r\n            \"interes\": 2,\r\n            \"otros\": 0\r\n        }\r\n    }\r\n}",
+											"raw": "{\r\n    \"id_user_\": 1,\r\n    \"instantly\": true,\r\n    \"institution\": {\r\n        \"id_institution\": 2\r\n    },\r\n    \"type_voucher\": \"01\",\r\n    \"body_voucher\": {\r\n        \"tipoIdentificacionComprador\": \"05\",\r\n        \"guiaRemision\": \"001-001-000000001\",\r\n        \"razonSocialComprador\": \"ANGEL LOOR\",\r\n        \"identificacionComprador\": \"1600744443\",\r\n        \"direccionComprador\": \"PUYO\",\r\n        \"totalSinImpuestos\": 300.5,\r\n        \"totalDescuento\": 0,\r\n        \"totalConImpuestos\": [\r\n            {\r\n                \"codigo\": 2,\r\n                \"codigoPorcentaje\": 2,\r\n                \"descuentoAdicional\": 0,\r\n                \"baseImponible\": 300.5,\r\n                \"valor\": 36.06\r\n            }\r\n        ],\r\n        \"propina\": 0,\r\n        \"importeTotal\": 336.56,\r\n        \"moneda\": \"DOLAR\",\r\n        \"pagos\": [\r\n            {\r\n                \"formaPago\": \"01\",\r\n                \"total\": 336.56,\r\n                \"plazo\": 0,\r\n                \"unidadTiempo\": \"dias\"\r\n            }\r\n        ],\r\n        \"valorRetIva\": 0,\r\n        \"valorRetRenta\": 0,\r\n        \"detalles\": [\r\n            {\r\n                \"codigoPrincipal\": \"001\",\r\n                \"codigoAuxiliar\": \"PAGINA-WEB\",\r\n                \"descripcion\": \"Página web - Local comercial - La ñaña\",\r\n                \"cantidad\": 1,\r\n                \"precioUnitario\": 300.5,\r\n                \"descuento\": 0,\r\n                \"precioTotalSinImpuesto\": 300.5,\r\n                \"impuestos\": [\r\n                    {\r\n                        \"codigo\": 2,\r\n                        \"codigoPorcentaje\": 2,\r\n                        \"tarifa\": 12,\r\n                        \"baseImponible\": 300.5,\r\n                        \"valor\": 36.06\r\n                    }\r\n                ]\r\n            }\r\n        ],\r\n        \"infoAdicional\": [\r\n            {\r\n                \"correo\": \"miguelangelloor96@gmail.com\"\r\n            }\r\n        ],\r\n        \"valoresExtras\": {\r\n            \"tasaProcesamiento\": 1,\r\n            \"interes\": 2,\r\n            \"otros\": 0\r\n        }\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2797,7 +3400,9 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/recepcionComprobante",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2821,7 +3426,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n\t\"id_user_\": 1,\r\n\t\"institution\": {\r\n\t\t\"id_institution\": 1\r\n\t},\r\n    \"access_key_voucher\": \"2504202201166000025000110010010000006831234567816\"\r\n}",
+											"raw": "{\r\n\t\"id_user_\": 1,\r\n\t\"institution\": {\r\n\t\t\"id_institution\": 2\r\n\t},\r\n\t \"access_key_voucher\": \"0303202301166000025000120020010000066131234567819\"\r\n}               ",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2830,7 +3435,9 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/autorizacionComprobante",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2854,7 +3461,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n\t\"id_user_\": 1,\r\n\t\"institution\": {\r\n\t\t\"id_institution\": 1\r\n\t},\r\n\t \"access_key_voucher\": \"2504202201166000025000110010010000006281234567816\"\r\n}",
+											"raw": "{\r\n\t\"id_user_\": 1,\r\n\t\"institution\": {\r\n\t\t\"id_institution\": 1\r\n\t},\r\n\t \"access_key_voucher\": \"1512202201166000025000120010010000064411234567816\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2863,8 +3470,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/cancelVoucher",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "voucher", "cancelVoucher"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"voucher",
+												"cancelVoucher"
+											]
 										}
 									},
 									"response": []
@@ -2891,7 +3505,9 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/reverseCancelVoucher",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2915,7 +3531,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n\t\"id_user_\": 1,\r\n\t\"institution\": {\r\n\t\t\"id_institution\": 1\r\n\t},\r\n\t \"access_key_voucher\": \"2504202201166000025000110010010000007201234567816\"\r\n}",
+											"raw": "{\r\n\t\"id_user_\": 1,\r\n\t\"institution\": {\r\n\t\t\"id_institution\": 2\r\n\t},\r\n\t \"access_key_voucher\": \"2702202301166000025000120020010000065191234567817\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2924,7 +3540,9 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/recepcionComprobanteInstantly",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2948,7 +3566,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n\t\"id_user_\": 1,\r\n\t\"institution\": {\r\n\t\t\"id_institution\": 1\r\n\t},  \r\n    \"type_voucher\": \"01\",\r\n\t\"emission_date_voucher\": \"2022-04-25 12:07:08.563\"\r\n}",
+											"raw": "{\r\n\t\"id_user_\": 1,\r\n\t\"institution\": {\r\n\t\t\"id_institution\": 1\r\n\t},  \r\n    \"type_voucher\": \"01\",\r\n\t\"emission_date_voucher\": \"2023-01-12 12:00:00.00\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2957,7 +3575,9 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/sendVoucherByBatchByInstitution",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -2981,7 +3601,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n\t\"id_user_\": 1,\r\n\t\"institution\": {\r\n        \"taxpayer\": {\r\n\t\t    \"id_taxpayer\": 1\r\n        }\r\n\t},\r\n    \"type_voucher\": \"01\",\r\n\t\"emission_date_voucher\": \"2022-04-26 12:07:08.563\"\r\n}",
+											"raw": "{\r\n\t\"id_user_\": 1,\r\n\t\"institution\": {\r\n        \"taxpayer\": {\r\n\t\t    \"id_taxpayer\": 1\r\n        }\r\n\t},\r\n    \"type_voucher\": \"01\",\r\n\t\"emission_date_voucher\": \"2023-03-03 12:07:08.563\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2990,7 +3610,9 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/sendVoucherByBatchByTaxpayer",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -3014,7 +3636,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n\t\"id_user_\": 1,\r\n\t\"institution\": {\r\n\t\t\"id_institution\": 1\r\n\t},\r\n\t \"access_key_voucher\": \"2504202201166000025000110010010000006831234567816\"\r\n}",
+											"raw": "{\r\n\t\"id_user_\": 1,\r\n\t\"institution\": {\r\n\t\t\"id_institution\": 1\r\n\t},\r\n\t \"access_key_voucher\": \"0404202301166000025000120010010000108021234567811\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3023,8 +3645,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/completeProcess",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "voucher", "completeProcess"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"voucher",
+												"completeProcess"
+											]
 										}
 									},
 									"response": []
@@ -3051,8 +3680,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/getBodyVoucher",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "voucher", "getBodyVoucher"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"voucher",
+												"getBodyVoucher"
+											]
 										}
 									},
 									"response": []
@@ -3070,7 +3706,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"id_user_\": 1,\r\n    \"access_key_voucher\": \"2504202201166000025000110010010000006831234567816\",\r\n    \"institution\": {\r\n        \"id_institution\": 1\r\n    },\r\n    \"type_voucher\": \"01\",\r\n    \"body_voucher\": {\r\n        \"tipoIdentificacionComprador\": \"05\",\r\n        \"guiaRemision\": \"001-001-000000001\",\r\n        \"razonSocialComprador\": \"ANGEL LOORSS\",\r\n        \"identificacionComprador\": \"1600744443\",\r\n        \"direccionComprador\": \"PUYO\",\r\n        \"totalSinImpuestos\": 300.5,\r\n        \"totalDescuento\": 0,\r\n        \"totalConImpuestos\": [\r\n            {\r\n                \"codigo\": 2,\r\n                \"codigoPorcentaje\": 2,\r\n                \"descuentoAdicional\": 0,\r\n                \"baseImponible\": 300.5,\r\n                \"valor\": 36.06\r\n            }\r\n        ],\r\n        \"propina\": 0,\r\n        \"importeTotal\": 336.56,\r\n        \"moneda\": \"DOLAR\",\r\n        \"pagos\": [\r\n            {\r\n                \"formaPago\": \"01\",\r\n                \"total\": 336.56,\r\n                \"plazo\": 0,\r\n                \"unidadTiempo\": \"dias\"\r\n            }\r\n        ],\r\n        \"valorRetIva\": 0,\r\n        \"valorRetRenta\": 0,\r\n        \"detalles\": [\r\n            {\r\n                \"codigoPrincipal\": \"001\",\r\n                \"codigoAuxiliar\": \"PAGINA-WEB\",\r\n                \"descripcion\": \"Página web - Local comercial - La ñaña\",\r\n                \"cantidad\": 1,\r\n                \"precioUnitario\": 300.5,\r\n                \"descuento\": 0,\r\n                \"precioTotalSinImpuesto\": 300.5,\r\n                \"impuestos\": [\r\n                    {\r\n                        \"codigo\": 2,\r\n                        \"codigoPorcentaje\": 2,\r\n                        \"tarifa\": 12,\r\n                        \"baseImponible\": 300.5,\r\n                        \"valor\": 36.06\r\n                    }\r\n                ]\r\n            }\r\n        ],\r\n        \"infoAdicional\": [\r\n            {\r\n                \"correo\": \"angelloor.dev@gmail.com\"\r\n            }\r\n        ],\r\n        \"valoresExtras\": {\r\n            \"tasaProcesamiento\": 1,\r\n            \"interes\": 2,\r\n            \"otros\": 0\r\n        }\r\n    }\r\n}",
+											"raw": "{\r\n    \"id_user_\": 1,\r\n    \"access_key_voucher\": \"2504202201166000025000110010010000006831234567816\",\r\n    \"institution\": {\r\n        \"id_institution\": 1\r\n    },\r\n    \"type_voucher\": \"01\",\r\n    \"body_voucher\": {\r\n        \"tipoIdentificacionComprador\": \"05\",\r\n        \"guiaRemision\": \"001-001-000000001\",\r\n        \"razonSocialComprador\": \"ANGEL LOORSS\",\r\n        \"identificacionComprador\": \"1600744443\",\r\n        \"direccionComprador\": \"PUYO\",\r\n        \"totalSinImpuestos\": 300.5,\r\n        \"totalDescuento\": 0,\r\n        \"totalConImpuestos\": [\r\n            {\r\n                \"codigo\": 2,\r\n                \"codigoPorcentaje\": 2,\r\n                \"descuentoAdicional\": 0,\r\n                \"baseImponible\": 300.5,\r\n                \"valor\": 36.06\r\n            }\r\n        ],\r\n        \"propina\": 0,\r\n        \"importeTotal\": 336.56,\r\n        \"moneda\": \"DOLAR\",\r\n        \"pagos\": [\r\n            {\r\n                \"formaPago\": \"01\",\r\n                \"total\": 336.56,\r\n                \"plazo\": 0,\r\n                \"unidadTiempo\": \"dias\"\r\n            }\r\n        ],\r\n        \"valorRetIva\": 0,\r\n        \"valorRetRenta\": 0,\r\n        \"detalles\": [\r\n            {\r\n                \"codigoPrincipal\": \"001\",\r\n                \"codigoAuxiliar\": \"PAGINA-WEB\",\r\n                \"descripcion\": \"Página web - Local comercial - La ñaña\",\r\n                \"cantidad\": 1,\r\n                \"precioUnitario\": 300.5,\r\n                \"descuento\": 0,\r\n                \"precioTotalSinImpuesto\": 300.5,\r\n                \"impuestos\": [\r\n                    {\r\n                        \"codigo\": 2,\r\n                        \"codigoPorcentaje\": 2,\r\n                        \"tarifa\": 12,\r\n                        \"baseImponible\": 300.5,\r\n                        \"valor\": 36.06\r\n                    }\r\n                ]\r\n            }\r\n        ],\r\n        \"infoAdicional\": [\r\n            {\r\n                \"correo\": \"miguelangelloor96@gmail.com\"\r\n            }\r\n        ],\r\n        \"valoresExtras\": {\r\n            \"tasaProcesamiento\": 1,\r\n            \"interes\": 2,\r\n            \"otros\": 0\r\n        }\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3079,7 +3715,9 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/resolveRecepcionComprobante",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -3103,7 +3741,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n\t\"id_user_\": 1,\r\n\t\"institution\": {\r\n\t\t\"id_institution\": 1\r\n\t},\r\n\t\"emission_date_voucher\": \"2022-04-25 12:07:08.563\"\r\n}",
+											"raw": "{\r\n\t\"id_user_\": 1,\r\n\t\"institution\": {\r\n\t\t\"id_institution\": 1\r\n\t},\r\n\t\"emission_date_voucher\": \"2023-01-16 12:00:00.00\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3112,7 +3750,9 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/bringVouchersOfSQLServer",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -3136,7 +3776,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/read/1/query-all",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -3162,7 +3804,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/specificRead/170",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -3187,7 +3831,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/byInstitutionRead/1/1",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -3213,7 +3859,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/byAccessKeyVoucherRead/2304202201166000025000110010010000006041234567816",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -3238,7 +3886,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/byBuyerIdentifierVoucherRead/1/1600546285/1/5/asc/",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -3268,7 +3918,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/byBuyerIdentifierVoucherAndSearchByParameterRead/1/1600546285/query-all",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -3295,7 +3947,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/byBuyerIdentifierAndEmissionYearVoucherRead/1/1600209058/2022/1/20/desc",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -3325,7 +3979,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/byBuyerIdentifierAndRangeEmissionDateVoucherRead/1/1600209058/2022-04-13/2022-04-14",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -3362,8 +4018,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/downloadVoucher",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "voucher", "downloadVoucher"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"voucher",
+												"downloadVoucher"
+											]
 										}
 									},
 									"response": []
@@ -3380,16 +4043,18 @@
 											}
 										],
 										"url": {
-											"raw": "{{URL_WSFE}}/app/business/voucher/vouchersOfSQLServerRead/*/2022-04-13/2022-04-14/*",
-											"host": ["{{URL_WSFE}}"],
+											"raw": "{{URL_WSFE}}/app/business/voucher/vouchersOfSQLServerRead/1/2023-01-11/2023-01-11/*",
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
 												"voucher",
 												"vouchersOfSQLServerRead",
-												"*",
-												"2022-04-13",
-												"2022-04-14",
+												"1",
+												"2023-01-11",
+												"2023-01-11",
 												"*"
 											]
 										}
@@ -3409,7 +4074,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/vouchersOfSQLServerByParameterRead/query-all",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -3434,7 +4101,9 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/byRangeEmissionDateVoucherRead/1/1/2022-04-13/2022-04-14/*",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -3466,7 +4135,9 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/signInWithBuyerIdentifierVoucher",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -3499,7 +4170,9 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/reportByRangeEmissionDateVoucher",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -3532,7 +4205,9 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/reportVouchersOfSQLServer",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -3565,7 +4240,9 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/reportResumeVouchersOfSQLServer",
-											"host": ["{{URL_WSFE}}"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
 											"path": [
 												"app",
 												"business",
@@ -3598,8 +4275,15 @@
 										},
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/update",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "voucher", "update"]
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"voucher",
+												"update"
+											]
 										}
 									},
 									"response": []
@@ -3617,8 +4301,15 @@
 										],
 										"url": {
 											"raw": "{{URL_WSFE}}/app/business/voucher/delete?id_user_=1&id_voucher=5",
-											"host": ["{{URL_WSFE}}"],
-											"path": ["app", "business", "voucher", "delete"],
+											"host": [
+												"{{URL_WSFE}}"
+											],
+											"path": [
+												"app",
+												"business",
+												"voucher",
+												"delete"
+											],
 											"query": [
 												{
 													"key": "id_user_",
@@ -3653,8 +4344,14 @@
 								],
 								"url": {
 									"raw": "{{URL_WSFE}}/app/report/delete?id_user_=1&name_report=report50",
-									"host": ["{{URL_WSFE}}"],
-									"path": ["app", "report", "delete"],
+									"host": [
+										"{{URL_WSFE}}"
+									],
+									"path": [
+										"app",
+										"report",
+										"delete"
+									],
 									"query": [
 										{
 											"key": "id_user_",
@@ -3671,56 +4368,8 @@
 						}
 					]
 				}
-			]
-		},
-		{
-			"name": "dev",
-			"item": [
-				{
-					"name": "entityBackendGenerate",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"scheme\": \"business\",\r\n    \"entity\": \"voucher\",\r\n    \"attributeToQuery\": \"access_key_voucher\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL_WSFE}}/dev/entityBackendGenerate",
-							"host": ["{{URL_WSFE}}"],
-							"path": ["dev", "entityBackendGenerate"]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "entityFrontendGenerate",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"scheme\": \"business\",\r\n    \"entity\": \"voucher\",\r\n    \"nameVisibility\": \"Comprobante\",\r\n    \"pathToCreate\": \"'../../../../../wsfe-frontend/src/app/modules/business/voucher/\",\r\n    \"attributeList\": {\r\n        \"first\": \"access_key_voucher\",\r\n        \"second\": \"emission_date_voucher\"\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL_WSFE}}/dev/entityFrontendGenerate",
-							"host": ["{{URL_WSFE}}"],
-							"path": ["dev", "entityFrontendGenerate"]
-						}
-					},
-					"response": []
-				}
-			]
+			],
+			"description": "Engloba toda la aplicación."
 		}
 	]
 }

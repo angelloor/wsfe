@@ -1,4 +1,4 @@
---
+	--
 -- PostgreSQL database dump
 --
 
@@ -4025,7 +4025,7 @@ BEGIN
 		RAISE EXCEPTION '%',_EXCEPTION USING DETAIL = '_database_auth';
 	END IF;
 END;
--- select * from core.auth_check_user('miguelangelloor96@gmail.com')
+-- select * from core.auth_check_user('david.freire@gmail.com')
 $$;
 
 
@@ -4087,7 +4087,7 @@ BEGIN
 		RAISE EXCEPTION '%',_EXCEPTION USING DETAIL = '_database_auth';
 	END IF;
 END;
--- select * from core.auth_reset_password('miguelangelloor96@gmail.com', 'nuevacontraseña')
+-- select * from core.auth_reset_password('david.freire@gmail.com', 'nuevacontraseña')
 $$;
 
 
@@ -4121,7 +4121,7 @@ DECLARE
 BEGIN
 	-- Verificar que el usuario no exceda las sesiones segun la configuración de la empresa
 	_SESSION_LIMIT = (select vs.session_limit from core.view_user vu inner join core.view_company vc on vu.id_company = vc.id_company inner join core.view_setting vs on vc.id_setting = vs.id_setting where vu.name_user = _name_user);
-	_SESSION_COUNT = (select count(*) from core.view_session vs inner join core.view_user vu on vs.id_user = vu.id_user where vu.name_user = 'miguelangelloor96@gmail.com' and vs.status_session = true);
+	_SESSION_COUNT = (select count(*) from core.view_session vs inner join core.view_user vu on vs.id_user = vu.id_user where vu.name_user = 'david.freire@gmail.com' and vs.status_session = true);
 	
 	IF (_SESSION_COUNT >= _SESSION_LIMIT) THEN
 		_EXCEPTION = 'Ha excedido el máximo de sesiones activas por usuario';
@@ -4206,7 +4206,7 @@ BEGIN
 		RAISE EXCEPTION '%',_EXCEPTION USING DETAIL = '_database_auth';
 	END IF;
 END;
-	-- select * from  core.auth_sign_in('miguelangelloor96@gmail.com', 'IvD7dt+mfsPPpD23ZSFPXA==')
+	-- select * from  core.auth_sign_in('david.freire@gmail.com', 'IvD7dt+mfsPPpD23ZSFPXA==')
 	-- select * from core.security_cap_aes_decrypt('IvD7dt+mfsPPpD23ZSFPXA==')
 $$;
 
@@ -9859,7 +9859,7 @@ COPY core."user" (id_user, id_company, id_person, id_type_user, name_user, passw
 4	1	4	3	monicaespin06@gmail.com	MnPQNaXtWZm/QLeDsCaDLA==	default.svg	t	f
 5	1	5	3	mastersyscomputer@hotmail.com	HwT5drY+1pK3mrDqPuaPBA==	default.svg	t	f
 3	1	3	3	aeugenia1965@hotmail.com	n/LOhLCO/VstfNndoxr/BQ==	default.svg	t	f
-1	1	1	1	angelloor.dev@gmail.com	J0oxaiK1wrJ1puhHL7dc9Q==	avatar-1-66561.jpg	t	f
+1	1	1	1	david.freire@gmail.com	J0oxaiK1wrJ1puhHL7dc9Q==	avatar-1-66561.jpg	t	f
 2	1	2	1	municipio@puyo.gob.ec	obGCw7WcILf9eYD3RdztaA==	avatar-2-815103.jpg	t	f
 \.
 
