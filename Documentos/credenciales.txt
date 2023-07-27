@@ -1,0 +1,3 @@
+Por motivos de seguridad, las credenciales están guardadas en las variables de entorno ya que toda la información esta subida en el repositorio de código (Gitlab)
+
+Municipio\Proyectos\wsfe\v2\wsfe-backend\env\production.env
