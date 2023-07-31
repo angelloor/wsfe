@@ -38,7 +38,7 @@ export const dml_taxpayer_create = (taxpayer: Taxpayer) => {
 
 export const view_taxpayer = (taxpayer: Taxpayer) => {
 	return new Promise<Taxpayer[]>(async (resolve, reject) => {
-		const query = `select ${COLUMNS_RETURN} from business.bvt${INNERS_JOIN}${
+		const query = `select ${COLUMNS_RETURN} from business.view_taxpayer bvt${INNERS_JOIN}${
 			taxpayer.business_name_taxpayer != 'query-all'
 				? ` where lower(bvt.business_name_taxpayer) LIKE '%${taxpayer.business_name_taxpayer}%'`
 				: ``
