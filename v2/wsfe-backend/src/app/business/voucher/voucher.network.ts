@@ -256,7 +256,7 @@ routerVoucher.post(
 
 				const generatedMail = generateMail(
 					`"WSFE" <${process.env.MAILER_USER}>`,
-					process.env.ADMIN_MAIL,
+					`${process.env.ADMIN_MAIL}`,
 					'sendVoucherByBatchByInstitution',
 					sendVoucherMail(),
 					attachments
@@ -296,7 +296,7 @@ routerVoucher.post(
 
 				const generatedMail = generateMail(
 					`"WSFE" <${process.env.MAILER_USER}>`,
-					process.env.ADMIN_MAIL,
+					`${process.env.ADMIN_MAIL}`,
 					'sendVoucherByBatchByTaxpayer',
 					sendVoucherMail(),
 					attachments
@@ -367,7 +367,7 @@ routerVoucher.post('/bringVouchersOfSQLServer', async (req: any, res: any) => {
 
 			const generatedMail = generateMail(
 				`"WSFE" <${process.env.MAILER_USER}>`,
-				process.env.ADMIN_MAIL,
+				`${process.env.ADMIN_MAIL}`,
 				'bringVouchersOfSQLServer',
 				bringVouchersOfSQLServerMail(),
 				attachments
