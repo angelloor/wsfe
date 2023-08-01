@@ -3,6 +3,7 @@ import SMTPTransport from 'nodemailer/lib/smtp-transport';
 import path from 'path';
 import util from 'util';
 import format from 'xml-formatter';
+import { SecurityCap } from '../../../utils/SecurityCap';
 import {
 	generateAccessKey,
 	getFullYearByAccessKey,
@@ -35,12 +36,12 @@ import {
 	deleteAmpersand,
 	generateRandomNumber,
 } from '../../../utils/global';
+import { currentDateEC } from '../../../utils/internationalDate';
 import { generateToken } from '../../../utils/jwt';
 import { generateMail, sendMail } from '../../../utils/mail/mail';
 import { Attachments, Mail } from '../../../utils/mail/mail.types';
 import { _businessMessages, _messages } from '../../../utils/message/message';
 import { MessageAPI } from '../../../utils/message/message.type';
-import { SecurityCap } from '../../../utils/SecurityCap';
 import { signVoucher } from '../../../utils/signSHA1';
 import {
 	autorizacionComprobante,
@@ -65,10 +66,8 @@ import {
 } from '../../report/report.declarate';
 import {
 	BodyVoucher,
-	campoAdicional,
-	detAdicional,
-	InstitutionSQLServer,
 	INSTITUTION_SQLSERVER,
+	InstitutionSQLServer,
 	ResponseAutorizacionComprobante,
 	ResponseBrindVoucher,
 	ResponseRecepcionComprobante,
@@ -86,6 +85,8 @@ import {
 	_bodyVoucher,
 	_typeServices,
 	_typeVoucher,
+	campoAdicional,
+	detAdicional,
 } from '../business.types';
 import { Institution } from '../institution/institution.class';
 import { _institution } from '../institution/institution.data';
@@ -391,7 +392,7 @@ export class Voucher {
 						/**
 						 * Obtenemos la fecha actual FullDate
 						 */
-						const todayDate: FullDate = getFullDate(new Date().toString());
+						const todayDate: FullDate = getFullDate(currentDateEC);
 						/**
 						 * Armar la clave de acceso
 						 */
@@ -1552,7 +1553,7 @@ export class Voucher {
 							/**
 							 * Obtenemos la fecha actual FullDate
 							 */
-							const todayDate: FullDate = getFullDate(new Date().toString());
+							const todayDate: FullDate = getFullDate(currentDateEC);
 							/**
 							 * Armamos los paths del comprobante
 							 */
@@ -1829,9 +1830,7 @@ export class Voucher {
 									/**
 									 * Obtenemos la fecha actual FullDate
 									 */
-									const todayDate: FullDate = getFullDate(
-										new Date().toString()
-									);
+									const todayDate: FullDate = getFullDate(currentDateEC);
 									/**
 									 * Armamos los paths del comprobante
 									 */
@@ -1942,7 +1941,7 @@ export class Voucher {
 							/**
 							 * Obtenemos la fecha actual FullDate
 							 */
-							const todayDate: FullDate = getFullDate(new Date().toString());
+							const todayDate: FullDate = getFullDate(currentDateEC);
 							/**
 							 * Armamos los paths del comprobante
 							 */
@@ -2127,7 +2126,7 @@ export class Voucher {
 								/**
 								 * Obtenemos la fecha actual FullDate
 								 */
-								const todayDate: FullDate = getFullDate(new Date().toString());
+								const todayDate: FullDate = getFullDate(currentDateEC);
 								/**
 								 * Armamos los paths del comprobante
 								 */
