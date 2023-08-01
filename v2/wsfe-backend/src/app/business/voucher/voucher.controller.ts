@@ -6,13 +6,13 @@ import { deleteAmpersand } from '../../../utils/global';
 import { verifyToken } from '../../../utils/jwt';
 import { _businessMessages, _messages } from '../../../utils/message/message';
 import {
+	_typeVoucher,
 	BodyVoucher,
 	detalle,
 	ResponseAutorizacionComprobante,
 	TYPE_ENVIRONMENT,
 	TYPE_VOUCHER_ENUM,
 	VoucherSQLServer,
-	_typeVoucher,
 } from '../business.types';
 import { validationVoucher_01 } from './validations/01';
 import { Voucher } from './voucher.class';
@@ -877,8 +877,10 @@ export const validation = (voucher: Voucher, url: string, token: string) => {
 										.downloadVoucher(_voucher)
 										.then((voucher: Voucher) => {
 											const _fullYear: FullDate = getFullDate(
-												voucher.emission_date_voucher!
+												voucher.emission_date_voucher!,
+												0
 											);
+
 											const id_taxpayer: number =
 												voucher.institution.taxpayer.id_taxpayer;
 											const id_institution: number =
