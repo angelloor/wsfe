@@ -42,7 +42,7 @@ export class Report {
 				reject(error);
 			});
 			/**
-			 * generateHTML
+			 * generatePDF
 			 */
 			await this.generatePDF(name_report, landscape).catch((error) => {
 				reject(error);

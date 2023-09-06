@@ -16,6 +16,7 @@ import {
 } from '../business.types';
 import { validationVoucher_01 } from './validations/01';
 import { Voucher } from './voucher.class';
+import { CLIENT_RENEG_LIMIT } from 'tls';
 
 export const validation = (voucher: Voucher, url: string, token: string) => {
 	return new Promise<Voucher | Voucher[] | boolean | any>(
@@ -894,6 +895,9 @@ export const validation = (voucher: Voucher, url: string, token: string) => {
 											const type_file_voucher = _voucher.type_file_voucher;
 
 											const base_path_vocher: string = `/file_store/electronic_voucher/${id_taxpayer}/${id_institution}/${type_environment}/${voucher.type_voucher!}/${fullYear}/${month}/${access_key_voucher}/${access_key_voucher}.${type_file_voucher}`;
+											
+											console.log(base_path_vocher);
+										
 											/**
 											 * Construimos el finalPath
 											 */

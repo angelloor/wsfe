@@ -392,7 +392,9 @@ export class Voucher {
 						/**
 						 * Obtenemos la fecha actual FullDate
 						 */
-						const todayDate: FullDate = getFullDate(currentDateEC);
+						//const todayDate: FullDate = getFullDate(currentDateEC);
+						const todayDate: FullDate = getFullDate(new Date().toString());
+
 						/**
 						 * Armar la clave de acceso
 						 */
@@ -2369,20 +2371,22 @@ export class Voucher {
 																 */
 																voucher.authorization_date_voucher =
 																	stringDateAuthorization;
-																/**
-																 * completeProcessFunctional
-																 */
 
-																const dateStringWithTimeZone: string =
+																	const dateStringWithTimeZone: string =
 																	parseDateToStringWithTimeZone(
 																		new Date(authorizationDate)
 																	);
+
+
+																const dateReplace: FullDate = getFullDate(voucher.emission_date_voucher!);
+																
+																console.log("dateReplace 1: "+ JSON.stringify(dateReplace));
 
 																this.completeProcessFunctional(
 																	voucher,
 																	sequence,
 																	finalSequence,
-																	todayDate,
+																	dateReplace,
 																	access_key_voucher,
 																	base_path_vocher,
 																	base_path_vocher_exclude_root,
@@ -2521,18 +2525,21 @@ export class Voucher {
 									 * Set authorization_date_voucher
 									 */
 									voucher.authorization_date_voucher = stringDateAuthorization;
-									/**
-									 * completeProcessFunctional
-									 */
+							
 
 									const dateStringWithTimeZone: string =
 										parseDateToStringWithTimeZone(new Date(authorizationDate));
+
+
+									const dateReplace: FullDate = getFullDate(voucher.emission_date_voucher!);
+																
+									console.log("dateReplace 2: "+ JSON.stringify(dateReplace));
 
 									this.completeProcessFunctional(
 										voucher,
 										sequence,
 										finalSequence,
-										todayDate,
+										dateReplace,
 										access_key_voucher,
 										base_path_vocher,
 										base_path_vocher_exclude_root,
@@ -2605,11 +2612,15 @@ export class Voucher {
 					new Date(authorizationDate)
 				);
 
+				const dateReplace: FullDate = getFullDate(voucher.emission_date_voucher!);
+																
+				console.log("dateReplace 3: "+ JSON.stringify(dateReplace));
+
 				await this.completeProcessFunctional(
 					voucher,
 					sequence,
 					finalSequence,
-					todayDate,
+					dateReplace,
 					access_key_voucher,
 					base_path_vocher,
 					base_path_vocher_exclude_root,
