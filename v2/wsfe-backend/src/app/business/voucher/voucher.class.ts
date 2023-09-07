@@ -2372,15 +2372,19 @@ export class Voucher {
 																voucher.authorization_date_voucher =
 																	stringDateAuthorization;
 
-																	const dateStringWithTimeZone: string =
+																const dateStringWithTimeZone: string =
 																	parseDateToStringWithTimeZone(
 																		new Date(authorizationDate)
 																	);
 
+																const dateReplace: FullDate = getFullDate(
+																	voucher.emission_date_voucher!
+																);
 
-																const dateReplace: FullDate = getFullDate(voucher.emission_date_voucher!);
-																
-																console.log("dateReplace 1: "+ JSON.stringify(dateReplace));
+																console.log(
+																	'dateReplace 1: ' +
+																		JSON.stringify(dateReplace)
+																);
 
 																this.completeProcessFunctional(
 																	voucher,
@@ -2525,15 +2529,15 @@ export class Voucher {
 									 * Set authorization_date_voucher
 									 */
 									voucher.authorization_date_voucher = stringDateAuthorization;
-							
 
 									const dateStringWithTimeZone: string =
 										parseDateToStringWithTimeZone(new Date(authorizationDate));
 
+									const dateReplace: FullDate = getFullDate(
+										voucher.emission_date_voucher!
+									);
 
-									const dateReplace: FullDate = getFullDate(voucher.emission_date_voucher!);
-																
-									console.log("dateReplace 2: "+ JSON.stringify(dateReplace));
+									console.log('dateReplace 2: ' + JSON.stringify(dateReplace));
 
 									this.completeProcessFunctional(
 										voucher,
@@ -2612,9 +2616,11 @@ export class Voucher {
 					new Date(authorizationDate)
 				);
 
-				const dateReplace: FullDate = getFullDate(voucher.emission_date_voucher!);
-																
-				console.log("dateReplace 3: "+ JSON.stringify(dateReplace));
+				const dateReplace: FullDate = getFullDate(
+					voucher.emission_date_voucher!
+				);
+
+				console.log('dateReplace 3: ' + JSON.stringify(dateReplace));
 
 				await this.completeProcessFunctional(
 					voucher,
