@@ -3304,9 +3304,24 @@ ALTER FUNCTION business.dml_voucher_create(id_user_ numeric, _id_institution num
 -- Name: dml_voucher_create_modified(numeric, numeric, business."TYPE_VOUCHER", character varying, character varying, character varying, json, business."TYPE_VOUCHER_STATUS", business."TYPE_VOUCHER_STATUS"); Type: FUNCTION; Schema: business; Owner: postgres
 --
 
-CREATE FUNCTION business.dml_voucher_create_modified(id_user_ numeric, _id_institution numeric, _type_voucher business."TYPE_VOUCHER", _number_voucher character varying, _access_key_voucher character varying, _buyer_identifier_voucher character varying, _body_voucher json, _internal_status_voucher business."TYPE_VOUCHER_STATUS", _global_status_voucher business."TYPE_VOUCHER_STATUS") RETURNS TABLE(id_voucher numeric, id_institution numeric, bvv_type_environment business."TYPE_ENVIRONMENT", bvv_type_emission business."TYPE_EMISSION", type_voucher business."TYPE_VOUCHER", number_voucher character varying, access_key_voucher character varying, emission_date_voucher timestamp without time zone, authorization_date_voucher timestamp without time zone, buyer_identifier_voucher character varying, body_voucher json, internal_status_voucher business."TYPE_VOUCHER_STATUS", global_status_voucher business."TYPE_VOUCHER_STATUS", action_pdf_voucher boolean, action_email_voucher boolean, action_alfresco_voucher boolean, messages_voucher json, deleted_voucher boolean, id_taxpayer numeric, bvi_type_environment business."TYPE_ENVIRONMENT", name_institution character varying, description_institution character varying, address_institution character varying, status_institution boolean)
-    LANGUAGE plpgsql
-    AS $$
+CREATE OR REPLACE FUNCTION business.dml_voucher_create_modified(
+	id_user_ numeric,
+	_id_institution numeric,
+	_type_voucher business."TYPE_VOUCHER",
+	_number_voucher character varying,
+	_emission_date_voucher timestamp without time zone,
+	_access_key_voucher character varying,
+	_buyer_identifier_voucher character varying,
+	_body_voucher json,
+	_internal_status_voucher business."TYPE_VOUCHER_STATUS",
+	_global_status_voucher business."TYPE_VOUCHER_STATUS")
+    RETURNS TABLE(id_voucher numeric, id_institution numeric, bvv_type_environment business."TYPE_ENVIRONMENT", bvv_type_emission business."TYPE_EMISSION", type_voucher business."TYPE_VOUCHER", number_voucher character varying, access_key_voucher character varying, emission_date_voucher timestamp without time zone, authorization_date_voucher timestamp without time zone, buyer_identifier_voucher character varying, body_voucher json, internal_status_voucher business."TYPE_VOUCHER_STATUS", global_status_voucher business."TYPE_VOUCHER_STATUS", action_pdf_voucher boolean, action_email_voucher boolean, action_alfresco_voucher boolean, messages_voucher json, deleted_voucher boolean, id_taxpayer numeric, bvi_type_environment business."TYPE_ENVIRONMENT", name_institution character varying, description_institution character varying, address_institution character varying, status_institution boolean) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
 			DECLARE	
 				_X RECORD;
 				_TYPE_ENVIRONMENT BUSINESS."TYPE_ENVIRONMENT";
@@ -3328,7 +3343,7 @@ CREATE FUNCTION business.dml_voucher_create_modified(id_user_ numeric, _id_insti
 					NUMBER_VOUCHER_ = _number_voucher;
 				END IF;
 
-				_ID_VOUCHER = (select * from business.dml_voucher_create(id_user_, _id_institution, _TYPE_ENVIRONMENT, _TYPE_EMISSION, _type_voucher, NUMBER_VOUCHER_, _access_key_voucher, now()::timestamp, null, _buyer_identifier_voucher, _body_voucher,  _internal_status_voucher, _global_status_voucher, false, false, false, '[]', false));
+				_ID_VOUCHER = (select * from business.dml_voucher_create(id_user_, _id_institution, _TYPE_ENVIRONMENT, _TYPE_EMISSION, _type_voucher, NUMBER_VOUCHER_, _access_key_voucher, _emission_date_voucher, null, _buyer_identifier_voucher, _body_voucher,  _internal_status_voucher, _global_status_voucher, false, false, false, '[]', false));
 
 				IF (_ID_VOUCHER >= 1) THEN
 					RETURN QUERY select bvv.id_voucher, bvv.id_institution, bvv.type_environment as bvv_type_environment, bvv.type_emission as bvv_type_emission, bvv.type_voucher, bvv.number_voucher, bvv.access_key_voucher, bvv.emission_date_voucher, bvv.authorization_date_voucher, bvv.buyer_identifier_voucher, bvv.body_voucher, bvv.internal_status_voucher, bvv.global_status_voucher, bvv.action_pdf_voucher, bvv.action_email_voucher, bvv.action_alfresco_voucher, bvv.messages_voucher, bvv.deleted_voucher, bvi.id_taxpayer, bvi.type_environment as bvi_type_environment, bvi.name_institution, bvi.description_institution, bvi.address_institution, bvi.status_institution from business.view_voucher bvv
@@ -3352,11 +3367,10 @@ CREATE FUNCTION business.dml_voucher_create_modified(id_user_ numeric, _id_insti
 					END IF;
 			END;
 			
-$$;
+$BODY$;
 
-
-ALTER FUNCTION business.dml_voucher_create_modified(id_user_ numeric, _id_institution numeric, _type_voucher business."TYPE_VOUCHER", _number_voucher character varying, _access_key_voucher character varying, _buyer_identifier_voucher character varying, _body_voucher json, _internal_status_voucher business."TYPE_VOUCHER_STATUS", _global_status_voucher business."TYPE_VOUCHER_STATUS") OWNER TO postgres;
-
+ALTER FUNCTION business.dml_voucher_create_modified(numeric, numeric, business."TYPE_VOUCHER", character varying, timestamp without time zone, character varying, character varying, json, business."TYPE_VOUCHER_STATUS", business."TYPE_VOUCHER_STATUS")
+    OWNER TO postgres;
 --
 -- TOC entry 411 (class 1255 OID 26022)
 -- Name: dml_voucher_delete(numeric, numeric); Type: FUNCTION; Schema: business; Owner: postgres

@@ -122,6 +122,7 @@ import {
 	view_voucher_of_sqlserver_read,
 	view_voucher_specific_read,
 } from './voucher.store';
+import { CLIENT_RENEG_LIMIT } from 'tls';
 
 const setTimeoutPromise = util.promisify(setTimeout);
 
@@ -390,9 +391,14 @@ export class Voucher {
 							voucher.global_status_voucher = this.global_status_voucher;
 						}
 						/**
-						 * Obtenemos la fecha actual FullDate
+						 * Generamos la fecha con el Emission Date
 						 */
-						//const todayDate: FullDate = getFullDate(currentDateEC);
+
+						//por confirmar (OJO AQUI SE TIENE LAS FECHA DE EMISION CORRECTA)
+						const dateReplace: FullDate = getFullDate(voucher.emission_date_voucher!);
+																
+						console.log("dateReplace -1: "+ JSON.stringify(dateReplace));
+						
 						const todayDate: FullDate = getFullDate(new Date().toString());
 
 						/**
@@ -402,7 +408,7 @@ export class Voucher {
 						const access_key_voucher: string = isToSolve
 							? voucher.access_key_voucher!
 							: generateAccessKey(
-									todayDate,
+								    dateReplace,
 									type_voucher!,
 									taxpayer.ruc_taxpayer!,
 									institution.type_environment!,
@@ -432,8 +438,8 @@ export class Voucher {
 						}/${
 							institution.id_institution
 						}/${institution.type_environment!}/${type_voucher!}/${
-							todayDate.fullYear
-						}/${todayDate.month}/${access_key_voucher}`;
+							dateReplace.fullYear
+						}/${dateReplace.month}/${access_key_voucher}`;
 
 						const base_path_vocher: string = `.${base_path_vocher_exclude_root}`;
 						/**
@@ -572,8 +578,8 @@ export class Voucher {
 							 <dirMatriz>${dir_matriz_taxpayer}</dirMatriz>
 						 </infoTributaria>
 						 <infoFactura>
-							 <fechaEmision>${todayDate.day}/${todayDate.month}/${
-							todayDate.fullYear
+							 <fechaEmision>${dateReplace.day}/${dateReplace.month}/${
+							dateReplace.fullYear
 						}</fechaEmision>
 							 ${
 									institution.address_institution
@@ -630,7 +636,7 @@ export class Voucher {
 							institution.id_institution,
 							institution.type_environment!,
 							type_voucher!,
-							todayDate,
+							dateReplace,
 							access_key_voucher
 						);
 						/**
@@ -1832,7 +1838,11 @@ export class Voucher {
 									/**
 									 * Obtenemos la fecha actual FullDate
 									 */
-									const todayDate: FullDate = getFullDate(currentDateEC);
+									//const todayDate: FullDate = getFullDate(currentDateEC);
+
+									const dateReplace: FullDate = getFullDate(voucher.emission_date_voucher!);
+																
+									console.log("dateReplace -2: "+ JSON.stringify(dateReplace));
 									/**
 									 * Armamos los paths del comprobante
 									 */
@@ -1852,7 +1862,7 @@ export class Voucher {
 										voucher_,
 										sequences[index],
 										finalSequence,
-										todayDate,
+										dateReplace,
 										voucher_.access_key_voucher!,
 										base_path_vocher,
 										base_path_vocher_exclude_root,
@@ -1943,7 +1953,11 @@ export class Voucher {
 							/**
 							 * Obtenemos la fecha actual FullDate
 							 */
-							const todayDate: FullDate = getFullDate(currentDateEC);
+							//const todayDate: FullDate = getFullDate(currentDateEC);
+
+							const dateReplace: FullDate = getFullDate(voucher.emission_date_voucher!);
+																
+							console.log("dateReplace -3: "+ JSON.stringify(dateReplace));
 							/**
 							 * Armamos los paths del comprobante
 							 */
@@ -1966,7 +1980,7 @@ export class Voucher {
 								voucher_,
 								_sequence,
 								finalSequence,
-								todayDate,
+								dateReplace,
 								voucher_.access_key_voucher!,
 								base_path_vocher,
 								base_path_vocher_exclude_root,
@@ -2128,7 +2142,11 @@ export class Voucher {
 								/**
 								 * Obtenemos la fecha actual FullDate
 								 */
-								const todayDate: FullDate = getFullDate(currentDateEC);
+								//const todayDate: FullDate = getFullDate(currentDateEC);
+								
+								const dateReplace: FullDate = getFullDate(voucher.emission_date_voucher!);
+																
+								console.log("dateReplace -4: "+ JSON.stringify(dateReplace));
 								/**
 								 * Armamos los paths del comprobante
 								 */
@@ -2150,7 +2168,7 @@ export class Voucher {
 									voucher,
 									sequence,
 									finalSequence,
-									todayDate,
+									dateReplace,
 									voucher.access_key_voucher!,
 									base_path_vocher,
 									base_path_vocher_exclude_root,
@@ -3776,10 +3794,16 @@ export class Voucher {
 		const ivaTotal: number = parseFloat((subTotal * (IVA / 100)).toFixed(2));
 		const total: number = parseFloat((subTotal + ivaTotal).toFixed(2));
 
+
+		//2023-01-17 10:57:14.660
+		console.log("Emision Date: "+ rowsSQLServer.fechaemision)
+
 		return {
 			id_user_: 1,
 			instantly: false,
 			number_voucher: rowsSQLServer.numerodocumento.toString(),
+			// aqui
+			emission_date_voucher: rowsSQLServer.fechaemision,
 			institution: {
 				id_institution: id_institution,
 			},

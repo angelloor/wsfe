@@ -2,7 +2,7 @@ import {
 	clientWSFEPostgreSQL,
 	clientWSFESQLServer,
 } from '../../../utils/conections';
-import { FullDate, getFullDate } from '../../../utils/date';
+import { FullDate, getFullDate, parseDateToStringWithTimeZone } from '../../../utils/date';
 import { _messages } from '../../../utils/message/message';
 import { InstitutionSQLServer, VoucherSQLServer } from '../business.types';
 import { Sequence } from '../sequence/sequence.class';
@@ -44,6 +44,10 @@ export const dml_voucher_reception = (voucher: Voucher, isToSolve: boolean) => {
 };
 
 export const dml_voucher_create = (voucher: Voucher) => {
+	const emission_date: string = voucher.emission_date_voucher!
+	const emission_date_instace = new Date(emission_date)
+	//console.log(parseDateToStringWithTimeZone(emission_date_instace))
+
 	return new Promise<Voucher[]>(async (resolve, reject) => {
 		const query = `select * from business.dml_voucher_create_modified(${
 			voucher.id_user_
@@ -55,13 +59,14 @@ export const dml_voucher_create = (voucher: Voucher) => {
 					? null
 					: `'${voucher.number_voucher}'`
 			},
+			'${parseDateToStringWithTimeZone(emission_date_instace)}',
 			'${voucher.access_key_voucher}',
 			'${voucher.buyer_identifier_voucher}',
 			'${JSON.stringify(voucher.body_voucher)}',
 			'${voucher.internal_status_voucher}',
 			'${voucher.global_status_voucher}')`;
 
-		// console.log(query);
+		//console.log(query);
 
 		try {
 			const response = await clientWSFEPostgreSQL.query(query);
