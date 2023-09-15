@@ -3,6 +3,10 @@
 	"version": "2.0.0",
 	"description": "WSFE",
 	"main": "index.js",
+	"engines": {
+		"node": "18.16.0",
+		"npm": "9.5.1"
+	},
 	"scripts": {
 		"server-dev-ts": "set NODE_ENV=development&& ts-node-dev --respawn ./src/index.ts",
 		"tsc": "tsc",
