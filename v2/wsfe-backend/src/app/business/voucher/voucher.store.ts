@@ -2,7 +2,11 @@ import {
 	clientWSFEPostgreSQL,
 	clientWSFESQLServer,
 } from '../../../utils/conections';
-import { FullDate, getFullDate, parseDateToStringWithTimeZone } from '../../../utils/date';
+import {
+	FullDate,
+	getFullDate,
+	parseDateToStringWithTimeZone,
+} from '../../../utils/date';
 import { _messages } from '../../../utils/message/message';
 import { InstitutionSQLServer, VoucherSQLServer } from '../business.types';
 import { Sequence } from '../sequence/sequence.class';
@@ -44,8 +48,8 @@ export const dml_voucher_reception = (voucher: Voucher, isToSolve: boolean) => {
 };
 
 export const dml_voucher_create = (voucher: Voucher) => {
-	const emission_date: string = voucher.emission_date_voucher!
-	const emission_date_instace = new Date(emission_date)
+	const emission_date: string = voucher.emission_date_voucher!;
+	const emission_date_instace = new Date(emission_date);
 	//console.log(parseDateToStringWithTimeZone(emission_date_instace))
 
 	return new Promise<Voucher[]>(async (resolve, reject) => {
@@ -164,6 +168,31 @@ export const view_voucher_by_access_key_voucher_read = (voucher: Voucher) => {
 	return new Promise<Voucher[]>(async (resolve, reject) => {
 		const query = `select ${COLUMNS_RETURN} from business.view_voucher bvv${INNERS_JOIN} 
 			where bvv.access_key_voucher = '${voucher.access_key_voucher}'`;
+
+		// console.log(query);
+
+		try {
+			const response = await clientWSFEPostgreSQL.query(query);
+			resolve(response.rows);
+		} catch (error: any) {
+			if (error.detail == '_database') {
+				reject({
+					..._messages[3],
+					description: error.toString().slice(7),
+				});
+			} else {
+				reject(error.toString());
+			}
+		}
+	});
+};
+
+export const view_voucher_by_access_key_voucher_read_replaced = (
+	access_key_voucher: string
+) => {
+	return new Promise<Voucher[]>(async (resolve, reject) => {
+		const query = `select ${COLUMNS_RETURN} from business.view_voucher bvv${INNERS_JOIN} 
+			where bvv.access_key_voucher = '${access_key_voucher}'`;
 
 		// console.log(query);
 
@@ -566,6 +595,30 @@ export const dml_voucher_by_batch_by_institution = (voucher: Voucher) => {
 export const dml_voucher_by_batch_by_taxpayer = (voucher: Voucher) => {
 	return new Promise<Sequence[]>(async (resolve, reject) => {
 		const query = `select * from business.dml_voucher_by_batch_by_taxpayer(${voucher.id_user_},${voucher.institution.taxpayer.id_taxpayer},'${voucher.type_voucher}','${voucher.emission_date_voucher}')`;
+
+		// console.log(query);
+
+		try {
+			const response = await clientWSFEPostgreSQL.query(query);
+			resolve(response.rows);
+		} catch (error: any) {
+			if (error.detail == '_database') {
+				reject({
+					..._messages[3],
+					description: error.toString().slice(7),
+				});
+			} else {
+				reject(error.toString());
+			}
+		}
+	});
+};
+
+export const dml_voucher_complete_process_by_batch_by_institution = (
+	voucher: Voucher
+) => {
+	return new Promise<Sequence[]>(async (resolve, reject) => {
+		const query = `select * from business.dml_voucher_complete_process_by_batch_by_institution(${voucher.id_user_},${voucher.institution.id_institution},'${voucher.type_voucher}','${voucher.emission_date_voucher}')`;
 
 		// console.log(query);
 

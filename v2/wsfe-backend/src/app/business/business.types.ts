@@ -1225,6 +1225,13 @@ export interface VoucherSQLServer {
 	institution: NameInstitutionSQLServer;
 	estadointerno: boolean | null;
 }
+
+export interface Devolution {
+	item: string;
+	status: boolean;
+	error: string;
+}
+
 /**
  * ONLY GADMCP
  */

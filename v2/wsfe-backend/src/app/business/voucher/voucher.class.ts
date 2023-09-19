@@ -66,6 +66,7 @@ import {
 } from '../../report/report.declarate';
 import {
 	BodyVoucher,
+	Devolution,
 	INSTITUTION_SQLSERVER,
 	InstitutionSQLServer,
 	ResponseAutorizacionComprobante,
@@ -102,6 +103,7 @@ import {
 	dml_voucher_by_batch_by_taxpayer,
 	dml_voucher_cancel,
 	dml_voucher_complete_process,
+	dml_voucher_complete_process_by_batch_by_institution,
 	dml_voucher_create,
 	dml_voucher_delete,
 	dml_voucher_download,
@@ -112,6 +114,7 @@ import {
 	dml_voucher_validation,
 	view_voucher,
 	view_voucher_by_access_key_voucher_read,
+	view_voucher_by_access_key_voucher_read_replaced,
 	view_voucher_by_buyer_identifier_and_emission_year_voucher_read,
 	view_voucher_by_buyer_identifier_and_range_emission_date_voucher_read,
 	view_voucher_by_buyer_identifier_voucher_and_search_by_parameter_read,
@@ -122,7 +125,6 @@ import {
 	view_voucher_of_sqlserver_read,
 	view_voucher_specific_read,
 } from './voucher.store';
-import { CLIENT_RENEG_LIMIT } from 'tls';
 
 const setTimeoutPromise = util.promisify(setTimeout);
 
@@ -395,10 +397,12 @@ export class Voucher {
 						 */
 
 						//por confirmar (OJO AQUI SE TIENE LAS FECHA DE EMISION CORRECTA)
-						const dateReplace: FullDate = getFullDate(voucher.emission_date_voucher!);
-																
-						console.log("dateReplace -1: "+ JSON.stringify(dateReplace));
-						
+						const dateReplace: FullDate = getFullDate(
+							voucher.emission_date_voucher!
+						);
+
+						//console.log('dateReplace -1: ' + JSON.stringify(dateReplace));
+
 						const todayDate: FullDate = getFullDate(new Date().toString());
 
 						/**
@@ -408,7 +412,7 @@ export class Voucher {
 						const access_key_voucher: string = isToSolve
 							? voucher.access_key_voucher!
 							: generateAccessKey(
-								    dateReplace,
+									dateReplace,
 									type_voucher!,
 									taxpayer.ruc_taxpayer!,
 									institution.type_environment!,
@@ -884,6 +888,26 @@ export class Voucher {
 	byAccessKeyVoucherRead(voucher: Voucher) {
 		return new Promise<Voucher>(async (resolve, reject) => {
 			await view_voucher_by_access_key_voucher_read(voucher)
+				.then((vouchers: Voucher[]) => {
+					/**
+					 * Mutate response
+					 */
+					const _vouchers = this.mutateResponse(vouchers);
+					resolve(_vouchers[0]);
+				})
+				.catch((error: string) => {
+					reject(error);
+				});
+		});
+	}
+	/**
+	 * byAccessKeyVoucherRead
+	 * @param voucher
+	 * @returns
+	 */
+	byAccessKeyVoucherReadReplaced(access_key_voucher: string) {
+		return new Promise<Voucher>(async (resolve, reject) => {
+			await view_voucher_by_access_key_voucher_read_replaced(access_key_voucher)
 				.then((vouchers: Voucher[]) => {
 					/**
 					 * Mutate response
@@ -1840,9 +1864,11 @@ export class Voucher {
 									 */
 									//const todayDate: FullDate = getFullDate(currentDateEC);
 
-									const dateReplace: FullDate = getFullDate(voucher.emission_date_voucher!);
-																
-									console.log("dateReplace -2: "+ JSON.stringify(dateReplace));
+									const dateReplace: FullDate = getFullDate(
+										voucher.emission_date_voucher!
+									);
+
+									//console.log('dateReplace -2: ' + JSON.stringify(dateReplace));
 									/**
 									 * Armamos los paths del comprobante
 									 */
@@ -1955,9 +1981,11 @@ export class Voucher {
 							 */
 							//const todayDate: FullDate = getFullDate(currentDateEC);
 
-							const dateReplace: FullDate = getFullDate(voucher.emission_date_voucher!);
-																
-							console.log("dateReplace -3: "+ JSON.stringify(dateReplace));
+							const dateReplace: FullDate = getFullDate(
+								voucher.emission_date_voucher!
+							);
+
+							//console.log('dateReplace -3: ' + JSON.stringify(dateReplace));
 							/**
 							 * Armamos los paths del comprobante
 							 */
@@ -2070,9 +2098,9 @@ export class Voucher {
 		return this.removeDuplicates(vouchers);
 	}
 	/**
-	 * removeDuplicates
+	 * removeDuplicates	
 	 * @param array
-	 * @returns
+1	 * @returns
 	 */
 	removeDuplicates(array: string[]) {
 		return array.filter((item, index) => array.indexOf(item) === index);
@@ -2082,7 +2110,7 @@ export class Voucher {
 	 * @param voucher
 	 * @returns
 	 */
-	completeProcess(voucher: Voucher) {
+	completeProcess(voucher: Voucher, access_key_voucher_replaced: string = '') {
 		return new Promise<Voucher>(async (resolve, reject) => {
 			await dml_voucher_complete_process(voucher)
 				.then(async (sequences: Sequence[]) => {
@@ -2100,7 +2128,11 @@ export class Voucher {
 						/**
 						 * Read by access key
 						 */
-						await this.byAccessKeyVoucherRead(voucher)
+						await this.byAccessKeyVoucherReadReplaced(
+							access_key_voucher_replaced
+								? access_key_voucher_replaced
+								: voucher.access_key_voucher!
+						)
 							.then(async (_voucher: Voucher) => {
 								/**
 								 * Actualizar los attributos
@@ -2143,10 +2175,12 @@ export class Voucher {
 								 * Obtenemos la fecha actual FullDate
 								 */
 								//const todayDate: FullDate = getFullDate(currentDateEC);
-								
-								const dateReplace: FullDate = getFullDate(voucher.emission_date_voucher!);
-																
-								console.log("dateReplace -4: "+ JSON.stringify(dateReplace));
+
+								const dateReplace: FullDate = getFullDate(
+									voucher.emission_date_voucher!
+								);
+
+								// console.log('dateReplace -4: ' + JSON.stringify(dateReplace));
 								/**
 								 * Armamos los paths del comprobante
 								 */
@@ -2189,6 +2223,85 @@ export class Voucher {
 							.catch((error: any) => {
 								reject(error);
 							});
+					} else {
+						reject({
+							..._businessMessages[4],
+							description: _businessMessages[4].description.replace(
+								'businessMessages',
+								'No se encontraron comprobantes registrados con los parámetros ingresados'
+							),
+						});
+					}
+				})
+				.catch((error: any) => {
+					reject(error);
+				});
+		});
+	}
+	/**
+	 * completeProcessByBatchByInstitution
+	 * @param voucher
+	 * @returns
+	 */
+	completeProcessByBatchByInstitution(voucher: Voucher) {
+		return new Promise<Devolution[]>(async (resolve, reject) => {
+			const IS_BY_TAXPAYER: boolean = true;
+			/**
+			 * First check validation
+			 */
+			await dml_voucher_complete_process_by_batch_by_institution(voucher)
+				.then(async (sequences: Sequence[]) => {
+					if (sequences.length > 0) {
+						/**
+						 * Obtener la secuencia de acuerdo a la validación del comprobante
+						 */
+						const _sequence = new Sequence();
+						/**
+						 * Mutate response
+						 */
+						const _sequences = _sequence.mutateResponse(sequences);
+						let vouchers: string[] = this.getStringArrayAccessKey(_sequences);
+
+						/**
+						 * eliminar elementos repetidos
+						 */
+						vouchers = vouchers.filter((item, index) => {
+							return vouchers.indexOf(item) === index;
+						});
+
+						let devolutions: Devolution[] = [];
+
+						vouchers.map(async (access_key_voucher: string, index: number) => {
+							/**
+							 * Armar el comprobante a enviar
+							 */
+							let _voucherToSend = new Voucher();
+
+							_voucherToSend.id_user_ = voucher.id_user_;
+							_voucherToSend.institution = voucher.institution;
+							_voucherToSend.type_voucher = voucher.type_voucher;
+							_voucherToSend.access_key_voucher = access_key_voucher;
+
+							await this.completeProcess(_voucherToSend, access_key_voucher)
+								.then(() => {
+									devolutions.push({
+										item: access_key_voucher,
+										status: true,
+										error: 'null',
+									});
+								})
+								.catch((error: any) => {
+									devolutions.push({
+										item: access_key_voucher,
+										status: false,
+										error: error,
+									});
+								});
+
+							if (index + 1 == vouchers.length) {
+								resolve(devolutions);
+							}
+						});
 					} else {
 						reject({
 							..._businessMessages[4],
@@ -2399,10 +2512,7 @@ export class Voucher {
 																	voucher.emission_date_voucher!
 																);
 
-																console.log(
-																	'dateReplace 1: ' +
-																		JSON.stringify(dateReplace)
-																);
+																//console.log('dateReplace 1: ' +JSON.stringify(dateReplace));
 
 																this.completeProcessFunctional(
 																	voucher,
@@ -2555,7 +2665,7 @@ export class Voucher {
 										voucher.emission_date_voucher!
 									);
 
-									console.log('dateReplace 2: ' + JSON.stringify(dateReplace));
+									//console.log('dateReplace 2: ' + JSON.stringify(dateReplace));
 
 									this.completeProcessFunctional(
 										voucher,
@@ -2638,7 +2748,7 @@ export class Voucher {
 					voucher.emission_date_voucher!
 				);
 
-				console.log('dateReplace 3: ' + JSON.stringify(dateReplace));
+				//console.log('dateReplace 3: ' + JSON.stringify(dateReplace));
 
 				await this.completeProcessFunctional(
 					voucher,
@@ -3591,7 +3701,6 @@ export class Voucher {
 						await _alfresco
 							.searchFile('') // '' es igual al directorio base de documentLibrary
 							.then(async (documentos: Documento[]) => {
-								console.log(documentos);
 								if (documentos.length > 0) {
 									const referencia = documentos[0].referencia;
 									const nodeIdDocumentLibrary = referencia.slice(
@@ -3800,9 +3909,8 @@ export class Voucher {
 		const ivaTotal: number = parseFloat((subTotal * (IVA / 100)).toFixed(2));
 		const total: number = parseFloat((subTotal + ivaTotal).toFixed(2));
 
-
 		//2023-01-17 10:57:14.660
-		console.log("Emision Date: "+ rowsSQLServer.fechaemision)
+		// console.log('Emision Date: ' + rowsSQLServer.fechaemision);
 
 		return {
 			id_user_: 1,
