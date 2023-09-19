@@ -328,6 +328,19 @@ routerVoucher.post('/completeProcess', async (req: any, res: any) => {
 		});
 });
 
+routerVoucher.post(
+	'/completeProcessByBatchByInstitution',
+	async (req: any, res: any) => {
+		await validation(req.body, req.url, req.headers.token)
+			.then((voucher: Voucher) => {
+				success(res, voucher);
+			})
+			.catch((err: MessageAPI | any) => {
+				error(res, err);
+			});
+	}
+);
+
 routerVoucher.post('/getBodyVoucher', async (req: any, res: any) => {
 	await validation(req.body, req.url, req.headers.token)
 		.then((voucher: Voucher) => {

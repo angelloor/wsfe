@@ -3082,6 +3082,83 @@ CREATE FUNCTION business.dml_voucher_by_batch_by_taxpayer(id_user_ numeric, _id_
 			
 $$;
 
+-- FUNCTION: business.dml_voucher_complete_process_by_batch_by_institution(numeric, numeric, business."TYPE_VOUCHER", character varying)
+-- DROP FUNCTION IF EXISTS business.dml_voucher_complete_process_by_batch_by_institution(numeric, numeric, business."TYPE_VOUCHER", character varying);
+
+CREATE OR REPLACE FUNCTION business.dml_voucher_complete_process_by_batch_by_institution(
+	id_user_ numeric,
+	_id_institution numeric,
+	_type_voucher business."TYPE_VOUCHER",
+	_emission_date_voucher character varying)
+    RETURNS TABLE(id_sequence numeric, id_institution numeric, id_establishment numeric, id_emission_point numeric, bvs_type_environment business."TYPE_ENVIRONMENT", bvs_type_voucher business."TYPE_VOUCHER", number_code_sequence character varying, deleted_sequence boolean, value_establishment character varying, description_establishment character varying, value_emission_point character varying, description_emission_point character varying, id_taxpayer numeric, bvi_type_environment business."TYPE_ENVIRONMENT", name_institution character varying, description_institution character varying, address_institution character varying, status_institution boolean, bvv_type_voucher business."TYPE_VOUCHER", access_key_voucher character varying, body_voucher json, id_company numeric, id_user numeric, id_setting_taxpayer numeric, type_emission business."TYPE_EMISSION", business_name_taxpayer character varying, tradename_taxpayer character varying, ruc_taxpayer character varying, dir_matriz_taxpayer character varying, signature_password_taxpayer character varying, signature_path_taxpayer character varying, status_taxpayer boolean, accounting_obliged business."TYPE_ACCOUNTING_OBLIGED", id_mail_server numeric, mailing_setting_taxpayer boolean, from_setting_taxpayer character varying, subject_setting_taxpayer character varying, html_setting_taxpayer text, download_note_setting_taxpayer character varying, logo_path_setting_taxpayer character varying, save_alfresco boolean, wait_autorization numeric, batch_shipping boolean, max_generation_pdf numeric, wait_generation_pdf numeric) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+			DECLARE	
+				_VALIDATION_STATUS BOOLEAN;
+				_START_DATE TIMESTAMP WITHOUT TIME ZONE;
+				_END_DATE TIMESTAMP WITHOUT TIME ZONE;
+				_X RECORD;
+				_COUNT_VOUCHER NUMERIC;
+				_EXCEPTION TEXT DEFAULT 'Internal Error';
+			BEGIN
+				_START_DATE = ''||_emission_date_voucher||' 00:00:00';
+				_END_DATE = ''||_emission_date_voucher||' 23:59:59';
+
+				-- General validation 
+				FOR _X IN select bvi.id_institution from business.view_institution bvi where bvi.id_institution = _id_institution LOOP
+					_VALIDATION_STATUS = (select * from business.validation_institution_overview(_X.id_institution, _type_voucher));
+				END LOOP;
+
+				IF (_VALIDATION_STATUS) THEN
+					_COUNT_VOUCHER =  (select count(*) from business.view_voucher bvv
+						inner join business.view_institution bvi on bvv.id_institution = bvi.id_institution
+						inner join business.view_taxpayer bvt on bvi.id_taxpayer = bvt.id_taxpayer
+						where bvi.id_institution = _id_institution   
+						and (bvv.action_pdf_voucher = false 
+						or bvv.action_email_voucher = false
+						or bvv.action_alfresco_voucher = false)		   
+						and bvv.type_voucher = _type_voucher and (bvv.emission_date_voucher > _START_DATE and bvv.emission_date_voucher < _END_DATE));
+						
+					IF (_COUNT_VOUCHER > 0) THEN
+						RETURN QUERY select bvs.id_sequence, bvs.id_institution, bvs.id_establishment, bvs.id_emission_point, bvs.type_environment as bvs_type_environment, bvs.type_voucher, bvs.number_code_sequence, bvs.deleted_sequence, bve.value_establishment, bve.description_establishment, bvep.value_emission_point, bvep.description_emission_point, bvi.id_taxpayer, bvi.type_environment as bvi_type_environment, bvi.name_institution, bvi.description_institution, bvi.address_institution, bvi.status_institution, bvv.type_voucher, bvv.access_key_voucher, bvv.body_voucher, bvt.id_company, bvt.id_user, bvt.id_setting_taxpayer, bvt.type_emission, bvt.business_name_taxpayer, bvt.tradename_taxpayer, bvt.ruc_taxpayer, bvt.dir_matriz_taxpayer, bvt.signature_password_taxpayer, bvt.signature_path_taxpayer, bvt.status_taxpayer, bvt.accounting_obliged, bvst.id_mail_server, bvst.mailing_setting_taxpayer, bvst.from_setting_taxpayer, bvst.subject_setting_taxpayer, bvst.html_setting_taxpayer, bvst.download_note_setting_taxpayer, bvst.logo_path_setting_taxpayer, cvs.save_alfresco, cvs.wait_autorization, cvs.batch_shipping, cvs.max_generation_pdf, cvs.wait_generation_pdf from business.view_sequence bvs
+							inner join business.view_establishment bve on bvs.id_establishment = bve.id_establishment
+							inner join business.view_emission_point bvep on bvs.id_emission_point = bvep.id_emission_point
+							inner join business.view_institution bvi on bvs.id_institution = bvi.id_institution
+							inner join business.view_voucher bvv on bvi.id_institution = bvv.id_institution
+							inner join business.view_taxpayer bvt on bvi.id_taxpayer = bvt.id_taxpayer
+							inner join business.view_setting_taxpayer bvst on bvst.id_setting_taxpayer = bvt.id_setting_taxpayer
+							inner join core.view_user cvu on bvt.id_user = cvu.id_user
+							inner join core.view_company cvc on cvu.id_company = cvc.id_company
+							inner join core.view_setting cvs on cvc.id_setting = cvs.id_setting
+							where bvi.id_institution = _id_institution
+							and (bvv.action_pdf_voucher = false 
+							or bvv.action_email_voucher = false
+							or bvv.action_alfresco_voucher = false)
+							and bvv.type_voucher = _type_voucher and (bvv.emission_date_voucher > _START_DATE and bvv.emission_date_voucher < _END_DATE);
+					ELSE
+						_EXCEPTION = 'No se encontraron comprobantes registrados con los parámetros ingresados';
+						RAISE EXCEPTION '%',_EXCEPTION USING DETAIL = '_database';
+					END IF;
+				END IF;
+				
+				exception when others then 
+				-- RAISE NOTICE '%', SQLERRM;
+				IF (_EXCEPTION = 'Internal Error') THEN
+					RAISE EXCEPTION '%',SQLERRM USING DETAIL = '_database';
+				ELSE
+					RAISE EXCEPTION '%',_EXCEPTION USING DETAIL = '_database';
+				END IF;
+			END;
+			
+$BODY$;
+
+ALTER FUNCTION business.dml_voucher_complete_process_by_batch_by_institution(numeric, numeric, business."TYPE_VOUCHER", character varying)
+    OWNER TO apiwsfe;
+
 
 ALTER FUNCTION business.dml_voucher_by_batch_by_taxpayer(id_user_ numeric, _id_taxpayer numeric, _type_voucher business."TYPE_VOUCHER", _emission_date_voucher character varying) OWNER TO postgres;
 

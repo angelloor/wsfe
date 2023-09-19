@@ -9,6 +9,7 @@ import {
 	_typeVoucher,
 	BodyVoucher,
 	detalle,
+	Devolution,
 	ResponseAutorizacionComprobante,
 	TYPE_ENVIRONMENT,
 	TYPE_VOUCHER_ENUM,
@@ -16,7 +17,6 @@ import {
 } from '../business.types';
 import { validationVoucher_01 } from './validations/01';
 import { Voucher } from './voucher.class';
-import { CLIENT_RENEG_LIMIT } from 'tls';
 
 export const validation = (voucher: Voucher, url: string, token: string) => {
 	return new Promise<Voucher | Voucher[] | boolean | any>(
@@ -39,6 +39,7 @@ export const validation = (voucher: Voucher, url: string, token: string) => {
 							url == '/recepcionComprobanteInstantly' ||
 							url == '/sendVoucherByBatchByInstitution' ||
 							url == '/sendVoucherByBatchByTaxpayer' ||
+							url == '/completeProcessByBatchByInstitution' ||
 							url == '/completeProcess' ||
 							url == '/getBodyVoucher' ||
 							url == '/resolveRecepcionComprobante' ||
@@ -70,7 +71,8 @@ export const validation = (voucher: Voucher, url: string, token: string) => {
 							url == '/recepcionComprobante' ||
 							url == '/resolveRecepcionComprobante' ||
 							url == '/sendVoucherByBatchByInstitution' ||
-							url == '/sendVoucherByBatchByTaxpayer'
+							url == '/sendVoucherByBatchByTaxpayer' ||
+							url == '/completeProcessByBatchByInstitution'
 						) {
 							attributeValidate(
 								'type_voucher',
@@ -93,7 +95,8 @@ export const validation = (voucher: Voucher, url: string, token: string) => {
 							url == '/completeProcess' ||
 							url == '/getBodyVoucher' ||
 							url == '/resolveRecepcionComprobante' ||
-							url == '/bringVouchersOfSQLServer'
+							url == '/bringVouchersOfSQLServer' ||
+							url == '/completeProcessByBatchByInstitution'
 						) {
 							attributeValidate(
 								'id_institution',
@@ -142,6 +145,7 @@ export const validation = (voucher: Voucher, url: string, token: string) => {
 						if (
 							url == '/sendVoucherByBatchByInstitution' ||
 							url == '/sendVoucherByBatchByTaxpayer' ||
+							url == '/completeProcessByBatchByInstitution' ||
 							url == '/bringVouchersOfSQLServer'
 						) {
 							attributeValidate(
@@ -797,6 +801,21 @@ export const validation = (voucher: Voucher, url: string, token: string) => {
 										.catch((error: any) => {
 											reject(error);
 										});
+								} else if (url == '/completeProcessByBatchByInstitution') {
+									/** set required attributes for action */
+									_voucher.id_user_ = voucher.id_user_;
+									_voucher.institution = voucher.institution;
+									_voucher.emission_date_voucher =
+										voucher.emission_date_voucher;
+									_voucher.type_voucher = voucher.type_voucher;
+									await _voucher
+										.completeProcessByBatchByInstitution(_voucher)
+										.then((devolutions: Devolution[]) => {
+											resolve(devolutions);
+										})
+										.catch((error: any) => {
+											reject(error);
+										});
 								} else if (url == '/getBodyVoucher') {
 									/** set required attributes for action */
 									_voucher.id_user_ = voucher.id_user_;
@@ -895,9 +914,7 @@ export const validation = (voucher: Voucher, url: string, token: string) => {
 											const type_file_voucher = _voucher.type_file_voucher;
 
 											const base_path_vocher: string = `/file_store/electronic_voucher/${id_taxpayer}/${id_institution}/${type_environment}/${voucher.type_voucher!}/${fullYear}/${month}/${access_key_voucher}/${access_key_voucher}.${type_file_voucher}`;
-											
-											console.log(base_path_vocher);
-										
+
 											/**
 											 * Construimos el finalPath
 											 */
